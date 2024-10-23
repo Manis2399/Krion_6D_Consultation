@@ -149,46 +149,8 @@ Scenario: User Login for Design Projects
   		
   		#WorkFlow Creation#
   		 	 @Run  
-  		Scenario: Verify by clicking on Workflow sub-module under settings in newly Created Project under Design module
-  		Then Clciking on Workflow sub-module under settings in newly Created Project under Design module
-  		
-  				 @Run  
-  		Scenario: Veriffy by Clicking on Select the category drop-down to select the category from the list
-  		Then Clicking on Select the category drop-down to select the required category from the list using sheetname "Workflow" and rownumber 0
-  		
-  		  	 @Run 
-  		Scenario: Veirfy by clicking on Add workflow button
-  		Then Clicking on Add workflow button
-  		
-  				 @Run 	 
-  		Scenario: Verify by selecting the stepper selection from the drop down in General info
-  		Then Selecting the stepper selection from the drop down using sheetname "Workflow" and rownumber 0
-  				 @Run 	 
-  		Scenario: verify by Entering the valid Name in the field in General info
-  		Then Entering the valid Name in the field using sheetname "Workflow" and rownumber 0
-  				 @Run 	  
-  		Scenario: verify by Entering the Description in the field in General info
-  		Then Entering the Description in the field using sheetname "Workflow" and rownumber 0
-  		
-  				 @Run 	  
-  		Scenario: verify by selecting the workflow category drop down field in General info
-  		Then selecting the workflow category drop down field using sheetname "Workflow" and rownumber 0
-  		
-  		 	 @Run 
-  		Scenario: verify by selecting the Status drop down field in General info
-  		Then selecting the Status drop down field using sheetname "Workflow" and rownumber 0
-  				 @Run   
-  		 Scenario: verify by Entering the valid Name for Approval in General info
-  		Then Entering the valid Name for Approval using sheetname "Workflow" and rownumber 0
-  		
-  		
-  		
-  	#	 Dynamic way of workflow approval process
-  				 
- 			  	   	   
-  		Scenario: Filling in approval steps dynamically
-  	  Then I fill in the approval steps for using sheetname "Approval Steps"
-  		Then Click On Create button to create workflow
+  		Scenario: Creating workflow based on the type selected in the select category of the project
+ 			Then Creating workflow based on the type selected in the select category of the project using sheetname "Workflow" and rownumber 0
   		
   		
   		

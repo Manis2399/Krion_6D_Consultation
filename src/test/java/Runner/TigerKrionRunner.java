@@ -10,9 +10,9 @@ import io.cucumber.junit.CucumberOptions;
 					tags = "@Run",
 
 					
-							features ="src/test/resources/Workflow.feature",
+						//	features ="src/test/resources/Workflow.feature",
 					
-		//   features ="src/test/resources/DesignProject.feature" ,
+					features ="src/test/resources/DesignProject.feature" ,
 			//	   features ="src/test/resources/Role.feature",			
 
 				   plugin = { "pretty", "html:target/cucumber-report/cucumber.html",
