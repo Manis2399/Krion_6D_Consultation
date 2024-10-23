@@ -27,6 +27,42 @@ public class ExcelReader {
     }
     
     
+    // Getting imagae link from excel sheet and uploading in an application
+
+    public String getImageFilePath(String excelFilePath, String sheetName, int rowNumber, String imageColumnName) throws InvalidFormatException, IOException {
+        Sheet sheet = getSheetByName(excelFilePath, sheetName);
+        if (sheet == null) {
+            throw new IllegalArgumentException("Sheet with name " + sheetName + " does not exist.");
+        }
+
+        Row headerRow = sheet.getRow(0); // Assuming the first row is the header row
+        int imageColumnIndex = -1;
+
+        // Find the column index for the image file path based on the header name
+        for (Cell cell : headerRow) {
+            if (cell.getStringCellValue().equalsIgnoreCase(imageColumnName)) {
+                imageColumnIndex = cell.getColumnIndex();
+                break;
+            }
+        }
+
+        if (imageColumnIndex == -1) {
+            throw new IllegalArgumentException("Column with name " + imageColumnName + " does not exist in the sheet.");
+        }
+
+        // Fetch the cell containing the image file path from the specified row
+        Row row = sheet.getRow(rowNumber);
+        if (row != null) {
+            Cell cell = row.getCell(imageColumnIndex);
+            return getCellValueAsString(cell); // Return the image file path as a string
+        } else {
+            throw new IllegalArgumentException("Row " + rowNumber + " does not exist.");
+        }
+    }
+
+    
+    
+    
 
     // New method to get data from all sheets in the workbook
     public Map<String, List<Map<String, String>>> getAllData(String excelFilePath) throws InvalidFormatException, IOException {

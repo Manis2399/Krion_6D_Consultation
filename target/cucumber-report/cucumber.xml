@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="5" time="58.751">
+    <testcase classname="Creating workflow separately" name="User Login for Design Projects for wf" time="17.598">
+        <system-out><![CDATA[Given I visit the User Login for Design Projects for wf using sheetname "Credentials" and rownumber 0.passed
+And I enter the credentials in login and click a login button for wf........passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Creating workflow separately" name="Verify by clicking on Project module Under Design section for wf" time="1.106">
+        <system-out><![CDATA[Then Clicking on Project module under Design section for wf.................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Creating workflow separately" name="Verify by filtering the required project and clicking on it for wf" time="10.83">
+        <system-out><![CDATA[Then filtering the required project and clickin on it for wf using sheetname "Add Project" and rownumber 0.passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Creating workflow separately" name="Verify by clicking the settings module in newly Created Project under Design module for wf" time="0.71">
+        <system-out><![CDATA[Then Clciking on Setting module in newly Created Project under Design module for wf.passed
+]]></system-out>
+    </testcase>
+    <testcase classname="Creating workflow separately" name="Creating workflow based on the type selected in the select category of the project" time="27.947">
+        <system-out><![CDATA[Then Creating workflow based on the type selected in the select category of the project using sheetname "Workflow" and rownumber 0.passed
+]]></system-out>
+    </testcase>
+</testsuite>
