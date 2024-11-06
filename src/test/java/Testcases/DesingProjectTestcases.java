@@ -23,10 +23,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentTest;
@@ -35,6 +38,7 @@ import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
+import Locators.ChecklistLocators;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -57,6 +61,7 @@ public class DesingProjectTestcases {
      private Locators.RFA_Locators RFA;
      private Locators.Meeting_Share_Locators MET;
      private Locators.BOM_BOQ_Attachments_Locators BOM;
+     private Locators.ChecklistLocators Chk;
      private ExtentTest test;
      private ExcelDataManager excelDataManager = ExcelDataManager.getInstance();
      private List<List<String>> approvalSteps;
@@ -84,6 +89,7 @@ public class DesingProjectTestcases {
          this.RFA = new Locators.RFA_Locators(driver);
          this.MET = new Locators.Meeting_Share_Locators(driver);
          this.BOM = new Locators.BOM_BOQ_Attachments_Locators(driver);
+         this.Chk = new Locators.ChecklistLocators(driver);
          this.D = new Locators.Design_Projects_Locators(driver);
      }
      
@@ -117,6 +123,15 @@ public class DesingProjectTestcases {
  		try {
  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
  			L.ClickOnLogin();
+ 			
+ 			if (D.isElementVisible(D.Error)) {
+                System.out.println("Login not successful due to invalid password or username");
+                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+            } else {
+                System.out.println("Login Successful");
+            }
+ 			
+ 			
  		} catch (Exception e) {
  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  		   exceptionHandler.handleException(e, "Login Page");
@@ -149,6 +164,37 @@ public class DesingProjectTestcases {
   		    throw e; 
   		}
   }
+     
+     
+     
+     @Then("Choosing whether to create ISO project or Non-ISO project using sheetname {string} and rownumber {int}")
+    	 public void Choosing_whether_to_create_ISO_project_or_Non_ISO_project(String sheetname, int rownumber) throws Exception {
+    	 try {
+	        	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	        	  List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
+
+			System.out.println("sheet name: " + testdata);
+        
+        String WithOrWithoutISOProject = testdata.get(rownumber).get("With or Without ISO Project");
+        Thread.sleep(1000);
+        if (WithOrWithoutISOProject != null && !WithOrWithoutISOProject.isEmpty()) {
+            int WithOrWithoutISOProjectStatus = Integer.parseInt(WithOrWithoutISOProject.split("\\.")[0]);
+            System.out.println(WithOrWithoutISOProjectStatus + "--->WithOrWithoutISOProjectStatus");
+            if (WithOrWithoutISOProjectStatus == 1) {
+            	Thread.sleep(1000);
+                D.ClickOnProjectWithoutISO();
+            }
+            }
+        
+        LoginInputDatas("WithOrWithoutISOProject", WithOrWithoutISOProject);
+			} catch (Exception e) {
+			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+		   exceptionHandler.handleException(e, "Add project Page");
+		    throw e; 
+		}
+ 
+     }
+     
      
      
      @Then("Clicking on Project template field and selecting the template using sheetname {string} and rownumber {int}")
@@ -288,6 +334,7 @@ public class DesingProjectTestcases {
         String ProjectDesigntype = testdata.get(rownumber).get("Design type");
         Thread.sleep(1000);
         D.ClickOnProjectDesignType();
+        Thread.sleep(2000);
         D.EnterOnProjectDesignType(ProjectDesigntype);
         D.selectDropdownOption(ProjectDesigntype);
         performTabKeyPress();
@@ -501,34 +548,37 @@ public class DesingProjectTestcases {
     	 try {
  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(13));
  			R.ClickOnCreateButton();
-     	} catch (Exception e) {
- 			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
- 		   exceptionHandler.handleException(e, "Add project Page");
- 		    throw e; 
- 		} 
+ 			
+ 			if (D.isElementVisible(D.Error)) {
+                System.out.println("Project Not Created due to Error Message");
+                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+            } else {
+                System.out.println("Project Created Successfully");
+            }
+ 			
+    	 } catch (Exception e) {
+             System.out.println("An unexpected error occurred: " + e.getMessage());
+             Assert.fail("Test failed due to an unexpected error.");
+             ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+   		   exceptionHandler.handleException(e, "Add project Page");
+   		    throw e; 
+         }
+ 			
      }
      
      
      //Assigning Role for the Created Project but First we need to find the created project from the list or from the table by searching in the search-box by its name
-     
-
-         
-     
-     
      
      
      @Then("filtering the required project and clickin on it using sheetname {string} and rownumber {int}")
      public void filtering_the_required_project_and_clickin_on_it_using_sheetname_and_rownumber(String sheetname, Integer rownumber) throws AWTException, InterruptedException {
      	 try {
     	 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(13));
-    	 // Extract project name from Excel
          List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
          String projectName = testdata.get(rownumber).get("Project name");
          Thread.sleep(4000);
-         // Enter project name in the search box
          AR.EnterOnSearchBox(projectName);
          Thread.sleep(2000);
-         // Click the desired project
          AR.clickOnProject(projectName);
      	} catch (Exception e) {
  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
@@ -595,9 +645,10 @@ public class DesingProjectTestcases {
 
 			String RoleName = testdata.get(rownumber).get("Role");
 			Thread.sleep(1000);
-			AR.ClickOnSelectTheRole();
+			//AR.ClickOnSelectTheRole();
 			Thread.sleep(1000);
-			AR.selectDropdownOptionForRole(RoleName);
+		//	AR.selectDropdownOptionForRole(RoleName);
+			AR.selectRole(RoleName);
 			LoginInputDatas("RoleName", RoleName);
 			} catch (Exception e) {
 			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
@@ -611,37 +662,22 @@ public class DesingProjectTestcases {
      public void clicking_on_add_user_drop_down_to_select_the_required_number_of_users_from_the_list_sheetname_and_rownumber(String sheetname, Integer rownumber) throws Exception {
     	 try {
     	 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-    	    
-    	    // Fetch user data from Excel
     	    List<Map<String, String>> userData = excelDataManager.getCachedData(sheetname);
     	    Thread.sleep(1000);
-    	    // Click on the Add User dropdown initially
-    	    AR.ClickOnAddUser();
-    	    
     	    for (Map<String, String> row : userData) {
     	        String userName = row.get("Add user"); // Adjust based on your Excel column header
-    	        
-    	        // Check if the user name is not empty
-    	        if (userName != null && !userName.isEmpty()) {
-    	            // Select the user from the dropdown
-    	        	 Thread.sleep(1000);
-    	            AR.selectUserFromDropdownForAddUser(userName);
+    	        if (userName != null && !userName.trim().isEmpty()) {
+    	        	System.out.println(userName);    
+    	        	Thread.sleep(1000);
+    	        	AR.ClickOnAddUser();                 
+    	        	Thread.sleep(1000);                  
+    	            AR.selectUser(userName);
     	            Thread.sleep(2000);
-    	            // Wait or click the dropdown again to allow for the next user selection
-    	            // Re-open the dropdown for selecting the next user
-    	            AR.ClickOnAddUser(); // Click again to re-open the dropdown
-    	            
-    	            // Wait briefly to ensure the dropdown is ready for the next selection
-    	            Thread.sleep(1000); // This can be optimized or replaced with explicit wait
     	        } else {
-    	            // Stop the loop if there's no user left to select
     	            System.out.println("No more users to select, stopping the selection process.");
     	            break;
     	        }
     	    }
-            performTabKeyPress();
-	        Thread.sleep(1000);		
-	        performTabKeyPress();
     	 } catch (Exception e) {
  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  		   exceptionHandler.handleException(e, "Role Assigning Page");
@@ -669,7 +705,7 @@ public class DesingProjectTestcases {
      @Then("Clicking on Assign Role for Group tab")
      public void clicking_on_assign_role_for_group_tab() {
     	 try {
-  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
   			AR.ClickOnAssignRoleForGroupTab();
       	} catch (Exception e) {
   			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
@@ -701,9 +737,10 @@ public class DesingProjectTestcases {
 
 			String RoleName = testdata.get(rownumber).get("Role For Group");
 			Thread.sleep(1000);
-			AR.ClickOnSelectTheRoleInGroup();
+			//AR.ClickOnSelectTheRoleInGroup();
 			Thread.sleep(1000);
-			AR.selectDropdownOptionForRoleGroup(RoleName);
+			//AR.selectDropdownOptionForRoleGroup(RoleName);
+			AR.selectroleforgroup(RoleName);
 			LoginInputDatas("RoleName for Group", RoleName);
 			} catch (Exception e) {
 			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
@@ -718,36 +755,23 @@ public class DesingProjectTestcases {
     	 try {
         	 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         	    
-        	    // Fetch user data from Excel
         	    List<Map<String, String>> userData = excelDataManager.getCachedData(sheetname);
         	    Thread.sleep(1000);
-        	    // Click on the Add User dropdown initially
-        	    AR.ClickOnAddGroup();
         	    
         	    for (Map<String, String> row : userData) {
         	        String userName = row.get("Add group"); // Adjust based on your Excel column header
-        	        
-        	        // Check if the user name is not empty
         	        if (userName != null && !userName.isEmpty()) {
-        	            // Select the user from the dropdown
+        	        	System.out.println(userName);
         	        	 Thread.sleep(1000);
-        	            AR.selectUserFromDropdownForAddGroup(userName);
+        	        	 AR.ClickOnAddGroup();
+        	        	Thread.sleep(1000);
+        	            AR.selectuserGroup(userName);
         	            Thread.sleep(2000);
-        	            // Wait or click the dropdown again to allow for the next user selection
-        	            // Re-open the dropdown for selecting the next user
-        	            AR.ClickOnAddGroup(); // Click again to re-open the dropdown
-        	            
-        	            // Wait briefly to ensure the dropdown is ready for the next selection
-        	            Thread.sleep(1000); // This can be optimized or replaced with explicit wait
         	        } else {
-        	            // Stop the loop if there's no user left to select
         	            System.out.println("No more users to select, stopping the selection process.");
         	            break;
         	        }
         	    }
-                performTabKeyPress();
-    	        Thread.sleep(1000);		
-    	        performTabKeyPress();
         	 } catch (Exception e) {
      			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
      		   exceptionHandler.handleException(e, "Role Assigning Page");
@@ -991,8 +1015,11 @@ public void selecting_workflow_on_the_field_using_sheetname_and_rownumber(String
 		System.out.println("sheet name: " + testdata);
     
     String Workflow = testdata.get(rownumber).get("Workflow");
+    System.out.println(Workflow);
     Thread.sleep(1000);
     RVW.ClickonWorkFlow();
+    Thread.sleep(1000);
+    RVW.EnterOnWorkFlow(Workflow);
     Thread.sleep(1000);
     RVW.selectDropdownOptionForWorkFlow(Workflow);
     LoginInputDatas("Workflow", Workflow);
@@ -1017,6 +1044,8 @@ public void selecting_priority_from_the_drop_down_using_sheetname_and_rownumber(
 		System.out.println(Priority);
 		Thread.sleep(1000);
 		RVW.ClickOnPriority();		
+		Thread.sleep(1000);
+		RVW.EnterOnPriority(Priority);
 		Thread.sleep(1000);
 		RVW.selectDropdownOptionForPriority(Priority);
 		LoginInputDatas("Priority", Priority);
@@ -1090,7 +1119,9 @@ public void selecting_checklist_from_the_drop_down_using_sheetname_and_rownumber
 			Thread.sleep(1000);
 			RVW.clickOnRequiredFile(FileName);
 			Thread.sleep(2000);
-			RVW.ClickOnAttachButton();
+			RVW.ClickOnAttachButton();		
+			Thread.sleep(2000);
+		//	RVW.ClickOnCreateButton();
 			LoginInputDatas("Attachfile", Attachfile);
 			LoginInputDatas("FileName", FileName);
 			} catch (Exception e) {
@@ -1107,6 +1138,12 @@ public void selecting_checklist_from_the_drop_down_using_sheetname_and_rownumber
  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(65));
  			Thread.sleep(2000);
  			RVW.ClickOnCreateButton();
+// 			if (D.isElementVisible(D.Error)) {
+//                System.out.println("Review Not Created due to Error Message");
+//                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//            } else {
+//                System.out.println("Review Created Successfully");
+//            }
  	} catch (Exception e) {
  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  		   exceptionHandler.handleException(e, "Add Review Page");
@@ -1488,6 +1525,12 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(65));
  			Thread.sleep(2000);
  			RVW.ClickOnCreateButton();
+// 			if (D.isElementVisible(D.Error)) {
+//                System.out.println("Issue Not Created due to Error Message");
+//                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//            } else {
+//                System.out.println("Issue Created Successfully");
+//            }
  	} catch (Exception e) {
  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  		   exceptionHandler.handleException(e, "Add Issue Page");
@@ -1695,7 +1738,9 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
 		Thread.sleep(1000);
 		RFA.ClickOnPriority();		
 		Thread.sleep(1000);
-		RFA.selectDropdownOptionForPriority(Priority);
+		RFA.EnterOnPriority(Priority);
+		Thread.sleep(1000);
+		RFA.selectDropdownOption(Priority);
 		LoginInputDatas("Priority", Priority);
 		} catch (Exception e) {
 		ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
@@ -1738,6 +1783,12 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(65));
 		Thread.sleep(2000);
 		RVW.ClickOnCreateButton();
+//		if (D.isElementVisible(D.Error)) {
+//            System.out.println("RFA Not Created due to Error Message");
+//            Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//        } else {
+//            System.out.println("RFA Created Successfully");
+//        }
 	 } catch (Exception e) {
 		ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
 	   exceptionHandler.handleException(e, "Add RFA Page");
@@ -1961,37 +2012,42 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
     	 try {
     		 	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
     	        List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
-    	        int i = rownumber;
-    	        while (i < testdata.size()) {
-    	            String selectUsersData = testdata.get(i).get("Select users");
-
-    	            if (selectUsersData != null && !selectUsersData.trim().isEmpty()) {
-    	                MET.ClickOnSelectUsersTab();
-    	                Thread.sleep(1000);
-    	                MET.EnterOnSearchUser(selectUsersData);
-    	                System.out.println(selectUsersData);
-    	                
-    	            } else {
-    	                break;
-    	            }
-    	            i++; // Move to the next row
-    	        }
-    	        i = rownumber;
-
-    	        while (i < testdata.size()) {
-    	            String selectGroupUsersData = testdata.get(i).get("Select user groups");
-
-    	            if (selectGroupUsersData != null && !selectGroupUsersData.trim().isEmpty()) {
-    	            	Thread.sleep(1000);
-    	                MET.ClickOnSelectGroupUsersTab();
-    	                Thread.sleep(1000);
-    	                MET.EnterOnSearchUserGroup(selectGroupUsersData);
-    	                System.out.println(selectGroupUsersData);
-    	            } else {
-    	                break;
-    	            }
-    	            i++; // Move to the next row
-    	        }
+    	        Thread.sleep(1000); 
+    	        
+    	        for (Map<String, String> row : testdata) {
+        	        String userName = row.get("Select users"); // Adjust based on your Excel column header
+        	        if (userName != null && !userName.isEmpty()) {
+        	        	 Thread.sleep(1000);
+        	        	 MET.ClickOnSelectUsersTab();
+        	        	 Thread.sleep(1000);
+        	        	 MET.ClickOnSelectUserField();
+        	        	 Thread.sleep(1000);
+        	        	 MET.Selectusers(userName);
+        	        	 Thread.sleep(2000);
+        	        } else {
+        	            System.out.println("No more users to select, stopping the selection process.");
+        	            break;
+        	        }
+        	    }
+    	        
+    	        
+    	        for (Map<String, String> row : testdata) {
+        	        String userName = row.get("Select user groups"); // Adjust based on your Excel column header
+        	        if (userName != null && !userName.isEmpty()) {
+        	        	 Thread.sleep(1000);
+        	        	 MET.ClickOnSelectGroupUsersTab();
+        	        	 Thread.sleep(1000);
+        	        	 MET.ClickOnSelectUserGroupField();
+        	        	Thread.sleep(1000);
+        	            MET.Selectusersgroup(userName);
+        	            Thread.sleep(2000);
+        	        } else {
+        	            System.out.println("No more users to select, stopping the selection process.");
+        	            break;
+        	        }
+        	    }
+    	        
+    	        
     	    } catch (Exception e) {
     	        System.err.println("An error occurred while selecting participants: " + e.getMessage());
     	    }
@@ -2048,6 +2104,12 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
  		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(65));
  		Thread.sleep(2000);
  		RVW.ClickOnCreateButton();
+// 		if (D.isElementVisible(D.Error)) {
+//            System.out.println("Meeting Not Created due to Error Message");
+//            Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//        } else {
+//            System.out.println("Meeting Created Successfully");
+//        }
  	 } catch (Exception e) {
  		ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  	   exceptionHandler.handleException(e, "Add Meeting Page");
@@ -2178,6 +2240,8 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
          Thread.sleep(1000);
          BOM.ClickOnWorkflow();
          Thread.sleep(1000);
+         BOM.EnterOnWorkflow(Workflow);
+         Thread.sleep(1000);
          BOM.selectDropdownOptionForWorkFlow(Workflow);
          LoginInputDatas("Workflow", Workflow);
      		} catch (Exception e) {
@@ -2201,6 +2265,8 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
 		Thread.sleep(1000);
 		BOM.ClickOnPriority();		
 		Thread.sleep(1000);
+		BOM.EnterOnPriority(Priority);
+		Thread.sleep(1000);
 		BOM.selectDropdownOptionForPriority(Priority);
 		LoginInputDatas("Priority", Priority);
 		} catch (Exception e) {
@@ -2221,6 +2287,7 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
     			String Unit = testdata.get(rownumber).get("Unit");
     			Thread.sleep(1000);
     			BOM.ClickOnUnit();	
+    			Thread.sleep(1000);
     			BOM.EnterOnUnit(Unit);
     			Thread.sleep(1000);
     			BOM.selectDropdownOptionForUnit(Unit);
@@ -2284,12 +2351,20 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
  			String EstimatedPricePerUnit = testdata.get(rownumber).get("Estimated Price Per Unit");
  			String EstimatedTotal = testdata.get(rownumber).get("Estimated Total");
  			
+ 			if (EstimatedQuantity != null && EstimatedQuantity.matches("\\d+\\.0")) {
+ 				EstimatedQuantity = EstimatedQuantity.substring(0, EstimatedQuantity.indexOf(".0"));
+ 			}
+ 			
+ 			if (EstimatedPricePerUnit != null && EstimatedPricePerUnit.matches("\\d+\\.0")) {
+ 				EstimatedPricePerUnit = EstimatedPricePerUnit.substring(0, EstimatedPricePerUnit.indexOf(".0"));
+ 			}
+ 			
  			Thread.sleep(1000);
  			String calculatedEstimatedTotal = BOM.getEstimatedTotal(); 			
- 			double estimatedquantity = Double.parseDouble(EstimatedQuantity);
- 	        double estimatedpricePerUnit = Double.parseDouble(EstimatedPricePerUnit);
+ 			int estimatedquantity = Integer.parseInt(EstimatedQuantity);
+ 			int estimatedpricePerUnit = Integer.parseInt(EstimatedPricePerUnit);
  	        
- 	        double estimatedTotalCalculated = estimatedquantity * estimatedpricePerUnit;
+ 	        int estimatedTotalCalculated = estimatedquantity * estimatedpricePerUnit;
  	        
  	        
  	        String estimatedTotalCalculatedStr = String.valueOf(estimatedTotalCalculated);
@@ -2366,11 +2441,21 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
  			String QuotedPricePerUnit = testdata.get(rownumber).get("Quoted Price Per Unit");
  			String QuotedTotal = testdata.get(rownumber).get("Quoted Total");
  			
+ 			if (OrderedQuantity != null && OrderedQuantity.matches("\\d+\\.0")) {
+ 				OrderedQuantity = OrderedQuantity.substring(0, OrderedQuantity.indexOf(".0"));
+ 			}
+ 			
+ 			if (QuotedPricePerUnit != null && QuotedPricePerUnit.matches("\\d+\\.0")) {
+ 				QuotedPricePerUnit = QuotedPricePerUnit.substring(0, QuotedPricePerUnit.indexOf(".0"));
+ 			}
+ 			
+ 			
+ 			
  			Thread.sleep(1000);
- 			double orderedquantity = Double.parseDouble(OrderedQuantity);
- 	        double quotedpricePerUnit = Double.parseDouble(QuotedPricePerUnit);
+ 			int orderedquantity = Integer.parseInt(OrderedQuantity);
+ 			int quotedpricePerUnit = Integer.parseInt(QuotedPricePerUnit);
  	        
- 	        double quotedTotalCalculated = orderedquantity * quotedpricePerUnit;
+ 			int quotedTotalCalculated = orderedquantity * quotedpricePerUnit;
  	        
  	        
  	        String quotedTotalCalculatedStr = String.valueOf(quotedTotalCalculated);
@@ -2446,11 +2531,20 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
  			String ActualPricePerUnit = testdata.get(rownumber).get("Actual Price Per Unit");
  			String ActualTotal = testdata.get(rownumber).get("Actual Total");
  			
+ 			if (ActualQuantity != null && ActualQuantity.matches("\\d+\\.0")) {
+ 				ActualQuantity = ActualQuantity.substring(0, ActualQuantity.indexOf(".0"));
+ 			}
+ 			
+ 			if (ActualPricePerUnit != null && ActualPricePerUnit.matches("\\d+\\.0")) {
+ 				ActualPricePerUnit = ActualPricePerUnit.substring(0, ActualPricePerUnit.indexOf(".0"));
+ 			}
+ 			
+ 			
  			Thread.sleep(1000);
- 			double actualquantity = Double.parseDouble(ActualQuantity);
- 	        double actualpricePerUnit = Double.parseDouble(ActualPricePerUnit);
+ 			int actualquantity = Integer.parseInt(ActualQuantity);
+ 			int actualpricePerUnit = Integer.parseInt(ActualPricePerUnit);
  	        
- 	        double actualotalCalculated = actualquantity * actualpricePerUnit;
+ 			int actualotalCalculated = actualquantity * actualpricePerUnit;
  	        
  	        
  	        String actualTotalCalculatedStr = String.valueOf(actualotalCalculated);
@@ -2539,34 +2633,41 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
     	        List<Map<String, String>> testData = excelDataManager.getCachedData(sheetname);
     	        System.out.println("Sheet data: " + testData);
 
-    	        // Initialize the row number to 0 to start with the first row
     	        int rownumber1 = 0;
 
-    	        // Loop through rows until an empty Property Name or Property Value is found
-    	        while (rownumber1 < testData.size()) {
-    	            String propertyName = testData.get(rownumber1).get("Property Name");
-    	            String propertyValue = testData.get(rownumber1).get("Property Value");
+    	     // Loop through rows until an empty Property Name or Property Value is found
+    	     while (rownumber1 < testData.size()) {
+    	         String propertyNameValue = testData.get(rownumber1).get("Property Name"); // Get the Property Name
+    	         String propertyValueValue = testData.get(rownumber1).get("Property Value"); // Get the Property Value
 
-    	            // Check if either Property Name or Property Value is empty
-    	            if (propertyName == null || propertyName.isEmpty() || propertyValue == null || propertyValue.isEmpty()) {
-    	                break; // Exit the loop when encountering empty data
-    	            }
+    	         // Check if either Property Name or Property Value is empty
+    	         if (propertyNameValue == null || propertyNameValue.isEmpty() || propertyValueValue == null || propertyValueValue.isEmpty()) {
+    	             break; // Exit the loop when encountering empty data
+    	         }
 
-    	            BOM.ClickOnAddPropertiesButton();
-    	            Thread.sleep(1000);
-    	            BOM.ClickOnPropertyName();
-    	            Thread.sleep(1000);
-    	            BOM.EnterOnPropertyName(propertyName);
-    	            Thread.sleep(1000);
-    	            BOM.ClickOnPropertyValue();
-    	            Thread.sleep(1000);
-    	            BOM.EnterOnPropertyValue(propertyValue);
-    	            Thread.sleep(1000);
-    	            BOM.ClickOnSubmitButton();
-    	            Thread.sleep(1000);
-    	            rownumber1++;
-    	        }
+    	         // Click on the button to add properties
+    	         BOM.ClickOnAddPropertiesButton();
+    	         Thread.sleep(1000); // Wait for a second (consider using WebDriverWait instead)
 
+    	         // Construct dynamic XPaths
+    	         String propertyNameXpath = String.format("(//input[@placeholder='Enter field name'])[%d]", rownumber1 + 1);
+    	         String propertyValueXpath = String.format("(//input[@placeholder='Enter field value'])[%d]", rownumber1 + 1);
+    	         
+    	         System.out.println(propertyNameXpath);
+    	         System.out.println(propertyValueXpath);
+    	         
+    	         // Locate the elements using the dynamic XPaths
+    	         WebElement propertyNameElement = driver.findElement(By.xpath(propertyNameXpath));
+    	         WebElement propertyValueElement = driver.findElement(By.xpath(propertyValueXpath));
+
+    	         // Fill the fields
+    	         propertyNameElement.sendKeys(propertyNameValue);
+    	         propertyValueElement.sendKeys(propertyValueValue);
+
+    	         // Increment the row number
+    	         rownumber1++;
+    	     }
+    	        
     	    } catch (Exception e) {
     	        ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
     	        exceptionHandler.handleException(e, "BOM Page");
@@ -2576,10 +2677,17 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
      
      
      @Then("Clicking on Create button to create BOM for the project")
-     public void Clicking_on_Create_button_to_create_BOM_for_the_project() {
+     public void Clicking_on_Create_button_to_create_BOM_for_the_project() throws Exception {
     	 try {
  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25)); 
+ 			Thread.sleep(1000);
  			BOM.ClickOnCreateButton();
+// 			if (D.isElementVisible(D.Error)) {
+//                System.out.println("BOM Not Created due to Error Message");
+//                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//            } else {
+//                System.out.println("BOM Created Successfully");
+//            }
     	 } catch (Exception e) {
  	        ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
  	        exceptionHandler.handleException(e, "BOM Page");
@@ -2588,30 +2696,188 @@ public void entering_valid_actual_cost_in_the_field_in_add_issue_using_sheetname
      }
      
      
+     //Attachments - > Check List Module Page Creation
+     
+     
+     @Then("Clicking on check List sub-module")
+     public void Clicking_on_check_List_sub_module() {
+    	 try {
+  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25)); 
+  			Chk.ClickOnCheckList();
+     	 } catch (Exception e) {
+  	        ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+  	        exceptionHandler.handleException(e, "Checklist Page");
+  	        throw e;
+  	    }
+     }
+     
+     @Then("Clicking on Add button to create check List for the project")
+     public void Clicking_on_Add_button_to_create_check_List_for_the_project() {
+    	 try {
+   			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25)); 
+   			Chk.ClickOnAddButton();
+      	 } catch (Exception e) {
+   	        ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+   	        exceptionHandler.handleException(e, "Checklist Page");
+   	        throw e;
+   	    }
+     }
+     
+     @Then("Entering valid code on checklist Code field using sheetname {string} and rownumber {int}")
+     public void Entering_valid_code_on_checklist_Code_field(String sheetname, int rownumber) throws Exception {
+    	 try {
+   	     	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+   	     	  List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
+
+   			System.out.println("sheet name: " + testdata);
+
+   			String Code = testdata.get(rownumber).get("Checklist Code");
+   			Thread.sleep(1000);
+   			Chk.EnterOnCheckListCode(Code);
+   			LoginInputDatas("Code", Code);
+   			} catch (Exception e) {
+   			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+   		   exceptionHandler.handleException(e, "Checklist Page");
+   		    throw e; 
+   		} 
+     }
+     
+     
+     @Then("Entering valid Name on checklist Name field using sheetname {string} and rownumber {int}")
+     public void entering_valid_name_on_checklist_name_field_using_sheetname_and_rownumber(String sheetname, Integer rownumber) throws Exception {
+    	 try {
+   	     	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+   	     	  List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
+
+   			System.out.println("sheet name: " + testdata);
+
+   			String Name = testdata.get(rownumber).get("Checklist Name");
+   			Thread.sleep(1000);
+   			Chk.EnterOnCheckListTitle(Name);
+   			LoginInputDatas("Name", Name);
+   			} catch (Exception e) {
+   			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+   		   exceptionHandler.handleException(e, "Checklist Page");
+   		    throw e; 
+   		} 
+     }
      
      
      
+     @Then("Entering values under Checklist Item Fields using sheetname {string} and rownumber {int}")
+     public void Entering_values_under_Checklist_Item_Fields(String sheetname, int startRowNumber) throws Exception {
+         try {
+             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(35));
+             List<Map<String, String>> testdata = excelDataManager.getCachedData(sheetname);
+             System.out.println(testdata);
+             int totalRows = testdata.size();
+             ChecklistLocators checklistLocators = new ChecklistLocators(driver);
+             // Loop through each row starting from startRowNumber until an empty row is found
+             for (int rownumber = startRowNumber; rownumber < totalRows; rownumber++) {
+                 String ChecklistitemName = testdata.get(rownumber).get("Checklist item Name");
+                 String Category = testdata.get(rownumber).get("Category");
+                 String Priority = testdata.get(rownumber).get("Priority");
+                 String Description = testdata.get(rownumber).get("Description");
+
+                 // Break the loop if the key column (Checklist item Name) is empty
+                 if (ChecklistitemName == null || ChecklistitemName.trim().isEmpty()) {
+                     System.out.println("Empty data encountered at row: " + rownumber + ". Stopping further processing.");
+                     break;
+                 }
+
+                 
+//                 String nameXpath = String.format("(//input[@placeholder='Enter name'])[%d]", rownumber + 1);
+//                 String categoryXpath = String.format("(//input[@placeholder='Select the category'])[%d]", rownumber + 1);
+//                 String priorityXpath = String.format("(//input[@placeholder='Select the priority'])[%d]", rownumber + 1);
+//                 String descriptionXpath = String.format("(//textarea[@placeholder='Enter description'])[%d]", rownumber + 1);
+//                 
+//                 // Fill in the form fields
+//                 Thread.sleep(1000);
+//                 Chk.ClearOnName();
+//                 Chk.EnterOnName(ChecklistitemName);
+//                 LoginInputDatas("ChecklistitemName", ChecklistitemName);
+//
+//                 // Enter and select Category
+//                 Thread.sleep(1000);
+//                 Chk.ClickOnSelectTheCategory();
+//                 Thread.sleep(1000);
+//                 Chk.EnterOnSelectTheCategory(Category);
+//                 Thread.sleep(1000);
+//                 Chk.selectDropdownOptionSelectTheCategory(Category);
+//                 LoginInputDatas("Category", Category);
+//
+//                 // Enter and select Priority
+//                 Thread.sleep(1000);
+//                 Chk.ClickOnPriority();
+//                 Thread.sleep(1000);
+//                 Chk.EnterOnPriority(Priority);
+//                 Thread.sleep(1000);
+//                 Chk.selectDropdownOptionForPriority(Priority);
+//                 LoginInputDatas("Priority", Priority);
+//
+//                 // Enter Description
+//                 Thread.sleep(1000);
+//                 Chk.ClearOnDescription();
+//                 Chk.EnterOnDescription(Description);
+//
+//                 // Log the input data (optional for debugging)
+//                 LoginInputDatas("ChecklistitemName", ChecklistitemName);
+//                 LoginInputDatas("Category", Category);
+//                 LoginInputDatas("Priority", Priority);
+//                 LoginInputDatas("Description", Description);
+//
+//                 // Click on "Add Row" to proceed for next entry
+//                 Thread.sleep(1000);
+//                 Chk.ClickOnAddRow();
+//                 
+//                 ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+                 
+                 
+                 
+                 checklistLocators.enterDynamicName(ChecklistitemName, rownumber + 1);
+                 checklistLocators.selectDynamicCategory(Category, rownumber + 1);
+                 checklistLocators.enterDynamicPriority(Priority, rownumber + 1);
+                 checklistLocators.enterDynamicDescription(Description, rownumber + 1);
+
+                 // Log the input data if needed
+                 LoginInputDatas("ChecklistitemName", ChecklistitemName);
+                 LoginInputDatas("Category", Category);
+                 LoginInputDatas("Priority", Priority);
+                 LoginInputDatas("Description", Description);
+
+                 if (rownumber < totalRows - 1 && testdata.get(rownumber + 1).get("Checklist item Name") != null) {
+                     Chk.ClickOnAddRow();
+                     ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+                 } else {
+                     System.out.println("No more data to process. Exiting loop.");
+                     break;
+                 }
+             }
+         } catch (Exception e) {
+             ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+             exceptionHandler.handleException(e, "Checklist Page");
+             throw e;
+         }
+     }
+
      
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+     @Then("Click on Create Button to create checklist")
+     public void Click_on_Create_Button_to_create_checklist() {
+    	 try {
+  			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(13));
+  			R.ClickOnCreateButton();
+//  			if (D.isElementVisible(D.Error)) {
+//                System.out.println("CheckList Not Created due to Error Message");
+//                Assert.assertEquals(D.isElementVisible(D.Error), "Error");
+//            } else {
+//                System.out.println("CheckList Created Successfully");
+//            }
+      	} catch (Exception e) {
+  			ExceptionHandler exceptionHandler = new ExceptionHandler(driver, ExtentCucumberAdapter.getCurrentStep());
+  		   exceptionHandler.handleException(e, "Checklist Page");
+  		    throw e; 
+  		}  
+     }
      
      
      

@@ -23,11 +23,16 @@ public class Issue_Locators {
 	WebDriver driver;
     WebDriverWait wait;
 	
-    @FindBy(xpath = "//span[.='Issues']")
+    @FindBy(xpath = "//span[.='Issue']")
     private WebElement Issues;
     
-    @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-issue-list/section/div/div[1]/div/div[2]/button")
+    
+//    @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-issue-list/section/div/div[1]/div/div[2]/div/div[2]/button/text()")
+//  private WebElement AddButton;
+    
+    @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-issue-list/section/div/div[1]/div/div[2]/div/div[2]/button")
     private WebElement AddButton;
+
 
     @FindBy(xpath = "//input[@placeholder='Enter issue code']")
     private WebElement IssueCode;
@@ -35,34 +40,38 @@ public class Issue_Locators {
     @FindBy(xpath = "//input[@placeholder='Enter issue title']")
     private WebElement Name;
     
-    @FindBy(xpath = "//textarea[@formcontrolname='description']")
-	private WebElement Description;
     
-    @FindBy(xpath = "//input[@formcontrolname='startDate']")
+   
+    @FindBy(xpath = "//textarea[@placeholder='Enter description']")
+	private WebElement Description;
+ 
+    @FindBy(xpath = "//input[@placeholder='Enter Start Date']")
 	private WebElement StartDate; 
     
-    @FindBy(xpath = "//input[@formcontrolname='targetDate']")
+    @FindBy(xpath = "//input[@placeholder='Enter Due Date']")
 	private WebElement DueDate;
     
-    @FindBy(xpath = "//span[@formcontrolname='type']")
+    @FindBy(xpath = "//input[@placeholder='Select the type']")
     private WebElement Type;
     
-    @FindBy(xpath = "//span[@formcontrolname='placement']")
+    
+    
+    @FindBy(xpath = "//input[@placeholder='Select the placement']")
     private WebElement Placement;
     
-    @FindBy(xpath = "//span[@formcontrolname='rootCause']")
+    @FindBy(xpath = "//input[@placeholder='Select the root cause']")
     private WebElement RootCause;
     
-    @FindBy(xpath = "//select[@formcontrolname='workflowStatusId']")
+    @FindBy(xpath = "//input[@placeholder='Select the workflow']")
     private WebElement 	Workflow;
     
-    @FindBy(xpath = "//input[@formcontrolname='location']")
+    @FindBy(xpath = "//input[@placeholder='Enter location']")
     private WebElement 	Location;
     
-    @FindBy(xpath = "//input[@formcontrolname='estimatedCost']")
+    @FindBy(xpath = "//input[@placeholder='Enter estimate cost']")
 	 private WebElement EstimateCost;
 	 
-	 @FindBy(xpath = "//input[@formcontrolname='actualCost']")
+	 @FindBy(xpath = "//input[@placeholder='Enter actual cost']")
 	 private WebElement ActualCost;
     
 	 @FindBy(xpath = "(//input[@type='file'])[2]")
@@ -127,25 +136,22 @@ public class Issue_Locators {
 	
 	
 	public void ClickOnActualCost() {
-	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        wait.until(ExpectedConditions.elementToBeClickable(ActualCost));
-
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", ActualCost);
-	        
-	        ActualCost.click();
-	        System.out.println("Actual cost field clicked successfully.");
-
-	    } catch (ElementClickInterceptedException e) {
-	        System.err.println("Element click intercepted: " + e.getMessage());
-
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", ActualCost);
-	        System.out.println("Actual cost field clicked using JavaScript after interception.");
-
-	    } catch (Exception e) {
-	        System.err.println("An unexpected error occurred: " + e.getMessage());
-	    }
-	}
+		try {
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(ActualCost)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(ActualCost));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ActualCost);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", ActualCost);
+  		} catch (ElementClickInterceptedException e) {
+  			System.err.println("Element click intercepted: " + e.getMessage());
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.elementToBeClickable(ActualCost));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ActualCost);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", ActualCost);
+  		} catch (Exception e) {
+  			System.err.println("An unexpected error occurred: " + e.getMessage());
+  		}
+    }
 
 	
 	
@@ -160,25 +166,22 @@ public class Issue_Locators {
 	
 	
 	public void ClickOnEstimateCost() {
-	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        wait.until(ExpectedConditions.elementToBeClickable(EstimateCost));
-
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", EstimateCost);
-	        
-	        EstimateCost.click();
-	        System.out.println("Estimate cost field clicked successfully.");
-
-	    } catch (ElementClickInterceptedException e) {
-	        System.err.println("Element click intercepted: " + e.getMessage());
-
-	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", EstimateCost);
-	        System.out.println("Estimate cost field clicked using JavaScript after interception.");
-
-	    } catch (Exception e) {
-	        System.err.println("An unexpected error occurred: " + e.getMessage());
-	    }
-	}
+		try {
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(EstimateCost)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(RootCause));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EstimateCost);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", EstimateCost);
+  		} catch (ElementClickInterceptedException e) {
+  			System.err.println("Element click intercepted: " + e.getMessage());
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.elementToBeClickable(EstimateCost));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EstimateCost);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", EstimateCost);
+  		} catch (Exception e) {
+  			System.err.println("An unexpected error occurred: " + e.getMessage());
+  		}
+    }
 
 
     
@@ -203,15 +206,16 @@ public class Issue_Locators {
     public void ClickOnWorkflow() {
     	try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
-
-  			Workflow.click();
+  			wait.until(ExpectedConditions.visibilityOf(Workflow)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(RootCause));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Workflow);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Workflow);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
-
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
-  			Workflow.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Workflow);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Workflow);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -229,15 +233,16 @@ public class Issue_Locators {
     public void ClickOnRootCause() {
     	try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(RootCause)); 
   			wait.until(ExpectedConditions.elementToBeClickable(RootCause));
-
-  			RootCause.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", RootCause);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", RootCause);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
-
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(RootCause));
-  			RootCause.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", RootCause);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", RootCause);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -257,15 +262,16 @@ public class Issue_Locators {
     public void ClickOnPlacement() {
     	try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Placement)); 
   			wait.until(ExpectedConditions.elementToBeClickable(Placement));
-
-  			Placement.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Placement);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Placement);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
-
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Placement));
-  			Placement.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Placement);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Placement);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -305,7 +311,9 @@ public class Issue_Locators {
     
     
     public void EnterOnType(String values) {
-    	Type.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Types = wait.until(ExpectedConditions.elementToBeClickable(Type));
+	    Types.sendKeys(values);
     }
     
     
@@ -313,15 +321,16 @@ public class Issue_Locators {
     public void ClickOnType() {
     	try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Type)); 
   			wait.until(ExpectedConditions.elementToBeClickable(Type));
-
-  			Type.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Type);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Type);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
-
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Type));
-  			Type.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Type);
+  	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Type);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -347,13 +356,13 @@ public class Issue_Locators {
     	try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(DueDate));
-
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", DueDate);
 			DueDate.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
-
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(DueDate));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", DueDate);
 			DueDate.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -427,10 +436,12 @@ public class Issue_Locators {
 		 try {
 		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		        wait.until(ExpectedConditions.elementToBeClickable(IssueCode));
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", IssueCode);
+		      //  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", IssueCode);
+		    	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", IssueCode);
 		        IssueCode.click();
 		    } catch (ElementClickInterceptedException e) {
 		        System.err.println("Element click intercepted: " + e.getMessage());
+		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", IssueCode);
 		        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", IssueCode);
 		    } catch (Exception e) {
 		        System.err.println("An unexpected error occurred: " + e.getMessage());

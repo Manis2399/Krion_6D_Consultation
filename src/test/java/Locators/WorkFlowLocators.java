@@ -148,54 +148,14 @@ public class WorkFlowLocators {
 	 
 	 
 	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[1]")
-//	 private WebElement SelectingSetp1SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[2]")
-//	 private WebElement SelectingSetp2SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[3]")
-//	 private WebElement SelectingSetp3SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[4]")
-//	 private WebElement SelectingSetp4SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[5]")
-//	 private WebElement SelectingSetp5SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[6]")
-//	 private WebElement SelectingSetp6SearchUserField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[7]")
-//	 private WebElement SelectingSetp7SearchUserField;
 	 
 	//Selecting search user Field under select users
 	    
 	    
-	    @FindBy(xpath = "//input[@placeholder='Search user']")
+	    @FindBy(xpath = "//ejs-multiselect[@id='multiUserGroup0']")
 	    private List<WebElement> selectingStepSearchUserGroupFields;
 	    
 	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[1]")
-//	 private WebElement SelectingSetp1SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[2]")
-//	 private WebElement SelectingSetp2SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[3]")
-//	 private WebElement SelectingSetp3SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[4]")
-//	 private WebElement SelectingSetp4SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[5]")
-//	 private WebElement SelectingSetp5SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[6]")
-//	 private WebElement SelectingSetp6SearchUserGroupField;
-//	 
-//	 @FindBy(xpath = "(//input[@placeholder='Search user'])[7]")
-//	 private WebElement SelectingSetp7SearchUserGroupField;
 	 
 	 //Description field in Steppers
 	    
@@ -224,11 +184,112 @@ public class WorkFlowLocators {
 	 @FindBy(xpath = "(//textarea[@formcontrolname='description'])[8]")
 	 private WebElement Step7DescriptionField;
 	 
-	
+	 
+	 //Email Trigger
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[1]")
+	 private WebElement EmailTrigger1;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[2]")
+	 private WebElement EmailTrigger2;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[3]")
+	 private WebElement EmailTrigger3;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[4]")
+	 private WebElement EmailTrigger4;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[5]")
+	 private WebElement EmailTrigger5;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[6]")
+	 private WebElement EmailTrigger6;
+	 
+	 @FindBy(xpath = "(//*[@id='isEmail'])[7]")
+	 private WebElement EmailTrigger7;
+	 
+	 
+	 @FindBy(xpath = "//input[@id='isEditable']")
+	 private WebElement Editable;
+	 
+	 
+	 
+	 @FindBy(xpath = "//input[@id='min0']")
+	 private WebElement MinimumNoOfMemRqd1;
+	 
+	 @FindBy(xpath = "//input[@id='min1']")
+	 private WebElement MinimumNoOfMemRqd2;
+	 
+	 @FindBy(xpath = "//input[@id='min2']")
+	 private WebElement MinimumNoOfMemRqd3;
+	 
+	 @FindBy(xpath = "//input[@id='min3']")
+	 private WebElement MinimumNoOfMemRqd4;
+	 
+	 @FindBy(xpath = "//input[@id='min4']")
+	 private WebElement MinimumNoOfMemRqd5;
+	 
+	 @FindBy(xpath = "//input[@id='min5']")
+	 private WebElement MinimumNoOfMemRqd6;
+	 
+	 @FindBy(xpath = "//input[@id='min6']")
+	 private WebElement MinimumNoOfMemRqd7;
+	 
+	 //Watchers
+	 
+	 @FindBy(xpath="//label[contains(text(), 'Watchers')]/following::ul[@id='myTab']//button[@formcontrolname='selectedUsers' and contains(text(), 'Select users')]")
+	 private WebElement WatchersSelectUsersTab;
+	 
+	 @FindBy(xpath="//label[contains(text(), 'Watchers')]/following::ul[@id='myTab']//button[@formcontrolname='selectedUserGroups' and contains(text(), 'Select user groups')]")
+	 private WebElement WatchersSelectUsersGroupsTab;
+	 
+	 @FindBy(xpath="//ejs-multiselect[@id='multiUser']")
+	 private WebElement watchersclick;
+		
+	 @FindBy(xpath="//ul[@id='multiUser_options']/li")
+	 private List<WebElement> watcherslist;
+	 
+	 @FindBy(xpath="//ejs-multiselect[@id='multiUserGroup']")
+	 private WebElement watchersgroupclick;
+		
+	 @FindBy(xpath="//ul[@id='multiUserGroup_options']/li")
+	 private List<WebElement> watchersgrouplist;
+	 
+	 
+	 @FindBy(xpath="//textarea[@formcontrolname='notes']")
+	 private WebElement WorkflowNotes;
+	 
+	 
+	 @FindBy(xpath="//*[@id='stepRevise2']")
+	 private WebElement StepToRevise3;
+	 
+	 @FindBy(xpath="//*[@id='stepRevise3']")
+	 private WebElement StepToRevise4;
+	 
+	 @FindBy(xpath="//*[@id='stepRevise4']")
+	 private WebElement StepToRevise5;
+	 
+	 @FindBy(xpath="//*[@id='stepRevise5']")
+	 private WebElement StepToRevise6;
+	 
+	 @FindBy(xpath="//*[@id='stepRevise6']")
+	 private WebElement StepToRevise7;
+	 
+	 @FindBy(xpath="//ul[@class='form-select mx-2 ng-untouched ng-pristine ng-valid']/li")
+	 private WebElement StepToReviseFieldList;
+	 
+	 
+	 
+	 
 	 @FindBy(xpath = "//button[.=' Create ']")
 	 private WebElement Create;
 	 
 	
+	 
+	 
+	 
+	 
+	 
 	public WorkFlowLocators(WebDriver driver) {
 		// initialize elements
 		this.driver = driver;
@@ -238,26 +299,347 @@ public class WorkFlowLocators {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void selectStepReviseDropdown(int step, String stepReviseValue) {
+	    WebElement stepDropdown = null;
+
+	    // Select the appropriate dropdown WebElement based on the step number
+	    switch (step) {
+	        case 3:
+	            stepDropdown = StepToRevise3;
+	            break;
+	        case 4:
+	            stepDropdown = StepToRevise4;
+	            break;
+	        case 5:
+	            stepDropdown = StepToRevise5;
+	            break;
+	        case 6:
+	            stepDropdown = StepToRevise6;
+	            break;
+	        case 7:
+	            stepDropdown = StepToRevise7;
+	            break;
+	        default:
+	            // Handle cases where the step is less than 3
+	            System.out.println("Step " + step + " does not have a dropdown associated.");
+	            return;
+	    }
+
+	        selectDropdownOption(stepDropdown, stepReviseValue);  // Pass the numeric value
+	}
+	
+	
+//	public void selectDropdownOption(WebElement dropdown, String value) {
+// 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dropdown);
+//	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dropdown);
+//	    // Assuming that the dropdown options are listed and can be found by their values
+//	    List<WebElement> options = driver.findElements(By.xpath("//option")); // Adjust this XPath as necessary
+//	    for (WebElement option : options) {
+//	        if (option.getText().equals(value)) {
+//	            option.click();
+//	            break;
+//	        }
+//	    }
+//	}
+	
+
+	public void selectDropdownOption(WebElement dropdown, String value) {
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dropdown);
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dropdown);
+
+	    // Use an XPath that handles case insensitivity for numerical values
+	    String xpathExpression = ".//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
+	                              + value.toLowerCase() + "')]";
+	    
+	    // Find the option using the constructed XPath
+	    List<WebElement> options = dropdown.findElements(By.xpath(xpathExpression));
+
+	    // If options are found, click on the first match
+	    if (!options.isEmpty()) {
+	        options.get(0).click();
+	    } else {
+	        System.out.println("No option found with value: " + value);
+	    }
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void EnterOnWorkflowNotes(String value) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement WorkflowNotesField = wait.until(ExpectedConditions.elementToBeClickable(WorkflowNotes));
+	    WorkflowNotesField.clear();
+	    WorkflowNotesField.sendKeys(value);
+	}
+	
+	
+	
+	
+	public void Selectwatcher(String watcherName) throws Exception {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(watchersclick));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", watchersclick);
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(watchersclick));
+                watchersclick.click();
+            } catch (Exception e) {
+                System.out.println("Regular click failed, using JavaScript click.");
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", watchersclick);
+            }
+            wait.until(ExpectedConditions.visibilityOfAllElements(watcherslist));
+            selectDropdown(watcherslist, watcherName);
+        } catch (Exception e) {
+            System.out.println("Error in Selectwatcher: " + e.getMessage());
+        }
+    }
+
+	public void Selectwatchersgroup(String watchersGroup) throws Exception {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(watchersgroupclick));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", watchersgroupclick);
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(watchersgroupclick));
+                watchersgroupclick.click();
+            } catch (Exception e) {
+                System.out.println("Regular click failed, using JavaScript click.");
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", watchersgroupclick);
+            }
+
+            wait.until(ExpectedConditions.visibilityOfAllElements(watchersgrouplist));
+            selectDropdown(watchersgrouplist, watchersGroup);
+        } catch (Exception e) {
+            System.out.println("Error in Selectwatcher: " + e.getMessage());
+        }
+    }
+	
+	public void selectDropdown(List<WebElement> elements, String compareText) throws Exception {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        
+        boolean optionFound = false;
+        for (WebElement element : elements) {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            String txt = element.getText().trim();
+            
+            if (txt.equalsIgnoreCase(compareText)) {
+                try {
+                    wait.until(ExpectedConditions.elementToBeClickable(element));
+                    element.click();
+                    System.out.println("Given option is found and selected: " + compareText);
+                    optionFound = true;
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Error clicking element: " + e.getMessage());
+                }
+            }
+        }
+        
+        if (!optionFound) {
+            System.out.println("Given option is not found in the dropdown list: " + compareText);
+        }
+    }
+
+	
+	
+	public void ClickOnWatchersSelectUserTab() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(WatchersSelectUsersTab));
+			WatchersSelectUsersTab.click();
+		} catch (ElementClickInterceptedException e) {
+			System.err.println("Element click intercepted: " + e.getMessage());
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(WatchersSelectUsersTab));
+			WatchersSelectUsersTab.click();
+		} catch (Exception e) {
+			System.err.println("An unexpected error occurred: " + e.getMessage());
+		}
+	}
+	
+	
+	public void ClickOnWatchersSelectUsersGroupsTab() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(WatchersSelectUsersGroupsTab));
+			WatchersSelectUsersGroupsTab.click();
+		} catch (ElementClickInterceptedException e) {
+			System.err.println("Element click intercepted: " + e.getMessage());
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(WatchersSelectUsersGroupsTab));
+			WatchersSelectUsersGroupsTab.click();
+		} catch (Exception e) {
+			System.err.println("An unexpected error occurred: " + e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	public void selectDropdownOptionApprovalLimit(String approvalLimit, int step) { 
+	    String selectXPath = "//select[@id='name" + step + "']/option[text()=" + approvalLimit + "]";
+	    System.out.println(selectXPath);
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    try {
+	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(selectXPath)));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+	        optionElement.click();
+	    } catch (TimeoutException e) {
+	        System.out.println("The dropdown option '" + approvalLimit + "' is not found or not clickable within the timeout.");
+	    } catch (ElementClickInterceptedException e) {
+	        System.out.println("Element click intercepted for '" + approvalLimit + "'. Trying to click via JavaScript.");
+	        WebElement optionElement = driver.findElement(By.xpath(selectXPath));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+	    }
+	}
+
+	
+	
+	
+	  public void clickOnMinimumNoOfMembersRequiredRadioBox(int value, int stepNumber) {
+	        WebElement buttonToClick = null;
+	        switch (stepNumber) {
+	            case 0:
+	                buttonToClick = MinimumNoOfMemRqd1;
+	                break;
+	            case 1:
+	                buttonToClick = MinimumNoOfMemRqd2;
+	                break;
+	            case 2:
+	                buttonToClick = MinimumNoOfMemRqd3;
+	                break;
+	            case 3:
+	                buttonToClick = MinimumNoOfMemRqd4;
+	                break;
+	            case 4:
+	                buttonToClick = MinimumNoOfMemRqd5;
+	                break;
+	            case 5:
+	                buttonToClick = MinimumNoOfMemRqd6;
+	                break;
+	            case 6:
+	                buttonToClick = MinimumNoOfMemRqd7;
+	                break;
+	            default:
+	                System.err.println("Invalid step number: " + stepNumber);
+	                return; 
+	        }
+
+	        try {
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	            
+	        } catch (ElementClickInterceptedException e) {
+	            System.err.println("Element click intercepted: " + e.getMessage());
+	            
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	        } catch (Exception e) {
+	            System.err.println("An unexpected error occurred: " + e.getMessage());
+	        }
+	    }
+	
+	
+	
+	
+	public void ClickOnEditableCheckBox() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(Editable));
+			Editable.click();
+		} catch (ElementClickInterceptedException e) {
+			System.err.println("Element click intercepted: " + e.getMessage());
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait.until(ExpectedConditions.elementToBeClickable(Editable));
+			Editable.click();
+		} catch (Exception e) {
+			System.err.println("An unexpected error occurred: " + e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	  public void clickOnEmailTriggerCheckBox(int value, int stepNumber) {
+	        WebElement buttonToClick = null;
+	        switch (stepNumber) {
+	            case 0:
+	                buttonToClick = EmailTrigger1;
+	                break;
+	            case 1:
+	                buttonToClick = EmailTrigger2;
+	                break;
+	            case 2:
+	                buttonToClick = EmailTrigger3;
+	                break;
+	            case 3:
+	                buttonToClick = EmailTrigger4;
+	                break;
+	            case 4:
+	                buttonToClick = EmailTrigger5;
+	                break;
+	            case 5:
+	                buttonToClick = EmailTrigger6;
+	                break;
+	            case 6:
+	                buttonToClick = EmailTrigger7;
+	                break;
+	            default:
+	                System.err.println("Invalid step number: " + stepNumber);
+	                return; 
+	        }
+
+	        try {
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	            
+	        } catch (ElementClickInterceptedException e) {
+	            System.err.println("Element click intercepted: " + e.getMessage());
+	            
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	        } catch (Exception e) {
+	            System.err.println("An unexpected error occurred: " + e.getMessage());
+	        }
+	    }
+	
+	
+	
 	public void ClickOnCreateButton() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Create));
-
-			// Perform the click action
 			Create.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
-
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Create));
 			Create.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
@@ -297,37 +679,6 @@ public class WorkFlowLocators {
 	
 	
 	
-//	public void EnterOnStep1DescriptionField(String values) {
-//		Step1DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep2DescriptionField(String values) {
-//		Step2DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep3DescriptionField(String values) {
-//		Step3DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep4DescriptionField(String values) {
-//		Step4DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep5DescriptionField(String values) {
-//		Step5DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep6DescriptionField(String values) {
-//		Step6DescriptionField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnStep7DescriptionField(String values) {
-//		Step7DescriptionField.sendKeys(values);
-//	}
-//	
-	
-	
-	
 	//Sending values to Search User Group Field under  Select user Group field
 	
 	  public void searchUserFromDropdownForSelectUserGroupTab(String userGroupName, int step) {
@@ -336,26 +687,20 @@ public class WorkFlowLocators {
 	            throw new IllegalArgumentException("Step must be between 1 and " + selectingStepSearchUserGroupFields.size());
 	        }
 
-	        // Construct the dynamic XPath for the user group option (visible elements only)
 	        String userGroupOptionXPath = "//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
 	                + userGroupName.toLowerCase() + "') and not(contains(@class, 'hidden'))]";
 
 	        try {
-	            // Open the user group dropdown for the specified step
 	            WebElement userGroupTab = selectUserGroupTabs.get(step - 1);
 	            wait.until(ExpectedConditions.visibilityOf(userGroupTab));
 	            userGroupTab.click();
-
-	            // Locate the search field for the specified step
 	            WebElement searchField = selectingStepSearchUserGroupFields.get(step - 1); // Adjust for zero-based index
 	            wait.until(ExpectedConditions.visibilityOf(searchField));
 	            searchField.clear();
 	            searchField.sendKeys(userGroupName);
 
-	            // Wait for the dropdown option to be visible and clickable
 	            WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userGroupOptionXPath)));
 
-	            // Scroll the option into view and click it
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	            optionElement.click();
 
@@ -380,77 +725,11 @@ public class WorkFlowLocators {
 	
 	
 	    
-	    
-	    
-	    
-	    
-//	public void searchUserFromDropdownForSelectUserGroupTab(String userGroupName, int step) {
-//	    // Construct the dynamic XPath for the search user group field based on the step number
-//	    String searchUserGroupFieldXPath = "(//input[@placeholder='Search user'])[" + step + "]";
-//	    String userGroupOptionXPath = "//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
-//	            + userGroupName.toLowerCase() + "')]";
-//
-//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//	    try {
-//	        // Locate the search user group field for the specified step and enter the group name
-//	        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(searchUserGroupFieldXPath)));
-//	        searchField.clear();
-//	        searchField.sendKeys(userGroupName);
-//
-//	        // Wait for the dropdown option to be visible and clickable
-//	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userGroupOptionXPath)));
-//
-//	        // Scroll the option into view and click it
-//	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
-//	        optionElement.click();
-//	    } catch (TimeoutException e) {
-//	        System.out.println("The dropdown option '" + userGroupName + "' for step " + step + " is not found or not clickable within the timeout.");
-//	    } catch (ElementClickInterceptedException e) {
-//	        System.out.println("Element click intercepted for '" + userGroupName + "' on step " + step + ". Trying to click via JavaScript.");
-//	        WebElement optionElement = driver.findElement(By.xpath(userGroupOptionXPath));
-//	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
-//	    }
-//	}
-//
-//	
-//	
-//	
-//	
-//	public void EnterOnSelectingSetp1SearchUserGroupField(String values) {
-//		SelectingSetp1SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp2SearchUserGroupField(String values) {
-//		SelectingSetp2SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp3SearchUserGroupField(String values) {
-//		SelectingSetp3SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp4SearchUserGroupField(String values) {
-//		SelectingSetp4SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp5SearchUserGroupField(String values) {
-//		SelectingSetp5SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp6SearchUserGroupField(String values) {
-//		SelectingSetp6SearchUserGroupField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp7SearchUserGroupField(String values) {
-//		SelectingSetp7SearchUserGroupField.sendKeys(values);
-//	}
-	
 	
 	
 	//Sending values to Search User field under select user tab
 	
 	    public void searchUserFromDropdownForSelectUsersTab(String userName, int step) throws InterruptedException {
-	        // Determine the correct XPath based on the step
 	        String searchFieldXPath;
 	        if (step == 1) {
 	            // For step 1, use the direct XPath
@@ -470,18 +749,14 @@ public class WorkFlowLocators {
 	            // Locate the search field for the specified step using the XPath
 	            WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(searchFieldXPath)));
 
-	            // Clear the search field and enter the user name
 	            searchField.clear();
 	            Thread.sleep(3000);  // Adjust the wait time if necessary
 	            searchField.sendKeys(userName);
 
-	            // Optionally wait for dropdown options to load
 	            Thread.sleep(500); // You can replace this with an explicit wait if needed
 
-	            // Wait for the dropdown option to be visible and clickable
 	            WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userOptionXPath)));
 
-	            // Scroll the option into view and click it
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	            optionElement.click();
 	        } catch (TimeoutException e) {
@@ -514,119 +789,54 @@ public class WorkFlowLocators {
 	
 	
 	
-	
-	
-	
-	
-	
-	//
-//	public void searchUserFromDropdownForSelectUsersTab(String userName, int step) {
-//	    // Construct the dynamic XPath for the search field based on the step number
-//	    String searchFieldXPath = "(//input[@placeholder='Search user'])[" + step + "]";
-//	    String userOptionXPath = "//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
-//	            + userName.toLowerCase() + "')]";
-//
-//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//	    try {
-//	        // Locate the search field for the specified step and enter the user name
-//	        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(searchFieldXPath)));
-//	        searchField.clear();
-//	        searchField.sendKeys(userName);
-//
-//	        // Wait for the dropdown option to be visible and clickable
-//	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userOptionXPath)));
-//
-//	        // Scroll the option into view and click it
-//	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
-//	        optionElement.click();
-//	    } catch (TimeoutException e) {
-//	        System.out.println("The dropdown option '" + userName + "' for step " + step + " is not found or not clickable within the timeout.");
-//	    } catch (ElementClickInterceptedException e) {
-//	        System.out.println("Element click intercepted for '" + userName + "' on step " + step + ". Trying to click via JavaScript.");
-//	        WebElement optionElement = driver.findElement(By.xpath(userOptionXPath));
-//	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
-//	    }}
-//	
-//	
-//	public void EnterOnSelectingSetp1SearchUserField(String values) {
-//		SelectingSetp1SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp2SearchUserField(String values) {
-//		SelectingSetp2SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp3SearchUserField(String values) {
-//		SelectingSetp3SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp4SearchUserField(String values) {
-//		SelectingSetp4SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp5SearchUserField(String values) {
-//		SelectingSetp5SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp6SearchUserField(String values) {
-//		SelectingSetp6SearchUserField.sendKeys(values);
-//	}
-//	
-//	public void EnterOnSelectingSetp7SearchUserField(String values) {
-//		SelectingSetp7SearchUserField.sendKeys(values);
-//	}
-//	
-	
-	
 	//Select Users Group Tab
 	
-	public void clickOnStepSelectUsersGroups(int stepNumber) {
-	    WebElement buttonToClick = null;
-	    switch (stepNumber) {
-	        case 0:
-	            buttonToClick = Step1SlectUsersGroups;
-	            break;
-	        case 1:
-	            buttonToClick = Step2SlectUsersGroups;
-	            break;
-	        case 2:
-	            buttonToClick = Step3SlectUsersGroups;
-	            break;
-	        case 3:
-	            buttonToClick = Step4SlectUsersGroups;
-	            break;
-	        case 4:
-	            buttonToClick = Step5SlectUsersGroups;
-	            break;
-	        case 5:
-	            buttonToClick = Step6SlectUsersGroups;
-	            break;
-	        case 6:
-	            buttonToClick = Step7SlectUsersGroups;
-	            break;
-	        default:
-	            System.err.println("Invalid step number: " + stepNumber);
-	            return; // Exit the method if step number is invalid
+	    public void clickOnStepSelectUsersGroups(int stepNumber) {
+	        WebElement buttonToClick = null;
+	        switch (stepNumber) {
+	            case 0:
+	                buttonToClick = Step1SlectUsersGroups;
+	                break;
+	            case 1:
+	                buttonToClick = Step2SlectUsersGroups;
+	                break;
+	            case 2:
+	                buttonToClick = Step3SlectUsersGroups;
+	                break;
+	            case 3:
+	                buttonToClick = Step4SlectUsersGroups;
+	                break;
+	            case 4:
+	                buttonToClick = Step5SlectUsersGroups;
+	                break;
+	            case 5:
+	                buttonToClick = Step6SlectUsersGroups;
+	                break;
+	            case 6:
+	                buttonToClick = Step7SlectUsersGroups;
+	                break;
+	            default:
+	                System.err.println("Invalid step number: " + stepNumber);
+	                return; 
+	        }
+
+	        try {
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	            
+	        } catch (ElementClickInterceptedException e) {
+	            System.err.println("Element click intercepted: " + e.getMessage());
+	            
+	            wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonToClick);
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonToClick);
+	        } catch (Exception e) {
+	            System.err.println("An unexpected error occurred: " + e.getMessage());
+	        }
 	    }
-	    try {
-	        // Wait for the element to be clickable
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
 
-	        // Perform the click action
-	        buttonToClick.click();
-	    } catch (ElementClickInterceptedException e) {
-	        // Handle the exception if the click is intercepted
-	        System.err.println("Element click intercepted: " + e.getMessage());
-
-	        // Optionally, wait again for the spinner to disappear and retry clicking
-	        wait.until(ExpectedConditions.elementToBeClickable(buttonToClick));
-	        buttonToClick.click();
-	    } catch (Exception e) {
-	        // Handle other potential exceptions
-	        System.err.println("An unexpected error occurred: " + e.getMessage());
-	    }}
 	
 	
 	//Select user Tab 
@@ -693,8 +903,17 @@ public class WorkFlowLocators {
 	
 	
 	public void EnterOnNameForApproval(String values) {
-		NameForApproval.sendKeys(values);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement NameForApprovals = wait.until(ExpectedConditions.elementToBeClickable(NameForApproval));
+	    NameForApprovals.sendKeys(values);
+		
 	}
+	
+	public String getApprovalFieldValue() {
+	    return NameForApproval.getAttribute("value");
+	}
+ 
+	
 	
 	public void ClearOnNameForApproval() {
 		NameForApproval.clear();
@@ -704,82 +923,45 @@ public class WorkFlowLocators {
 	
 	public void ClickOnStatus() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Status));
-
-			// Perform the click action
 			Status.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
-
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Status));
 			Status.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
 	
 	
 	public void selectDropdownOptionSelectStatus(String optionText) {
-        // Construct the XPath for the option text in a case-insensitive manner
 		 String xpathExpression = "//select[@formcontrolname='status']/option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
 		            + optionText.toLowerCase() + "')]";
-        
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         try {
-            // Wait for the dropdown options to become clickable
             WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
-            // Scroll the element into view and click
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
             optionElement.click();
-            
         } catch (TimeoutException e) {
             System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
         } catch (ElementClickInterceptedException e) {
             System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-            
-            // Try clicking via JavaScript as a fallback
             WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
         }
     }
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	 public void selectDropdownOptionSelectCategory(String optionText) {
-	        // Construct the XPath for the option text in a case-insensitive manner
 		 String xpathExpression = "//select[@formcontrolname='category']/option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
 			        + optionText.toLowerCase() + "')]";
-	        
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 	        try {
-	            // Wait for the dropdown options to become clickable
 	            WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
-	            // Scroll the element into view and click
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	            optionElement.click();
 	            
@@ -787,33 +969,23 @@ public class WorkFlowLocators {
 	            System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
 	        } catch (ElementClickInterceptedException e) {
 	            System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-	            
-	            // Try clicking via JavaScript as a fallback
 	            WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
 	        }
 	    }
 	
+	 
 	public void ClickOnSelectCategory() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectCategory));
-
-			// Perform the click action
 			SelectCategory.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
-
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectCategory));
 			SelectCategory.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
@@ -821,28 +993,29 @@ public class WorkFlowLocators {
 	
 	
 	public void EnterOnDescription(String values) {
-		Description.sendKeys(values);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Descriptions = wait.until(ExpectedConditions.elementToBeClickable(Description));
+	    Descriptions.sendKeys(values);
 	}
 	
 	
 	public void EnterOnName(String values) {
-		Name.sendKeys(values);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Names = wait.until(ExpectedConditions.elementToBeClickable(Name));
+	    Names.sendKeys(values);
 	}
 	
 	
 	
 	 public void selectDropdownOptionSteppersSelection(String optionText) {
-	        // Construct the XPath for the option text in a case-insensitive manner
 		 String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
 			        + optionText.toLowerCase() + "')]";
 	        
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 	        try {
-	            // Wait for the dropdown options to become clickable
 	            WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
 
-	            // Scroll the element into view and click
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	            optionElement.click();
 	            
@@ -851,7 +1024,6 @@ public class WorkFlowLocators {
 	        } catch (ElementClickInterceptedException e) {
 	            System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
 	            
-	            // Try clicking via JavaScript as a fallback
 	            WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
 	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
 	        }
@@ -859,64 +1031,22 @@ public class WorkFlowLocators {
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	public void ClickOnSelectSteppers() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectSteppers));
-
-			// Perform the click action
 			SelectSteppers.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
 
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectSteppers));
 			SelectSteppers.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	
 	//workflow
 	
@@ -928,10 +1058,7 @@ public class WorkFlowLocators {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 	    try {
-	        // Wait for the dropdown option to be visible and clickable
 	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
-	        // Scroll the option into view and click
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	        optionElement.click();
 	    } catch (TimeoutException e) {
@@ -946,85 +1073,57 @@ public class WorkFlowLocators {
 	
 	
 	
-	
-	
 	public void ClickOnAddWorkflowButton() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddWorkflowButton));
 
-			// Perform the click action
 			AddWorkflowButton.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
-
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddWorkflowButton));
 			AddWorkflowButton.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
 	
 	
-	
-
 	
 	
 	public void ClickOnSelectTheCategoryDropdown() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectTheCategoryDropdown));
 
-			// Perform the click action
 			SelectTheCategoryDropdown.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
 
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectTheCategoryDropdown));
 			SelectTheCategoryDropdown.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}
-	
-	
 	
 	
 	
 	public void ClickOnWorkflow() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
 
-			// Perform the click action
 			Workflow.click();
 		} catch (ElementClickInterceptedException e) {
-			// Handle the exception if the click is intercepted
 			System.err.println("Element click intercepted: " + e.getMessage());
 
-			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
 			Workflow.click();
 		} catch (Exception e) {
-			// Handle other potential exceptions
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
 	}

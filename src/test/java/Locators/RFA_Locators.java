@@ -24,28 +24,29 @@ public class RFA_Locators {
 	 @FindBy(xpath = "//span[.='RFA']")
 	 private WebElement RFA;
 	
-	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-rfa/section/div/div[1]/div/div[2]/button")
+	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-rfa/section/div/div[1]/div/div[2]/div/div[2]/button")
 	 private WebElement AddButton;
 
-	 @FindBy(xpath = "//input[@placeholder='Enter review code']")
+
+	 @FindBy(xpath = "//input[@placeholder='Enter rfa code']")
 	 private WebElement RFACode;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter review name']")
+	 @FindBy(xpath = "//input[@placeholder='Enter rfa name']")
 	 private WebElement RFAName;
 	 
-	 @FindBy(xpath = "//textarea[@formcontrolname='description']")
+	 @FindBy(xpath = "//textarea[@placeholder='Enter description']")
 	 private WebElement Description;
 	 
-	 @FindBy(xpath = "//input[@formcontrolname='startDate']")
+	 @FindBy(xpath = "//input[@placeholder='Enter Start Date']")
 	 private WebElement StartDate; 
 	 
-	 @FindBy(xpath = "//input[@formcontrolname='targetDate']")
+	 @FindBy(xpath = "//input[@placeholder='Enter Due Date']")
 	 private WebElement EndDate;
 	 
-	 @FindBy(xpath = "//select[@formcontrolname='workflowStatusId']")
+	 @FindBy(xpath = "//input[@placeholder='Select the workflow']")
 	 private WebElement WorkFlow;
 	 
-	 @FindBy(xpath = "//ejs-dropdownlist[@formcontrolname='priorityId']")
+	 @FindBy(xpath = "//input[@placeholder='Select the priority']")
 	 private WebElement Priority;
 	 
 	 
@@ -82,51 +83,45 @@ public class RFA_Locators {
 		
 		
 		
-		public void selectDropdownOptionForPriority(String optionText) {
-			 String xpathExpression = "//ul[contains(@class, 'e-list-parent')]//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
-	                 + optionText.toLowerCase() + "')]";
-
-			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-			 try {
-				 // Wait for the dropdown option to be visible and clickable
-				 WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
-				 // Scroll the element into view (if needed) and click
-				 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
-				 optionElement.click();
-			 } catch (TimeoutException e) {
-				 System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
-			 } catch (ElementClickInterceptedException e) {
-				 System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-
-				 // Try clicking via JavaScript as a fallback
-				 WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
-				 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
-	}
-
-		}
+//		public void selectDropdownOptionForPriority(String optionText) {
+//			 String xpathExpression = "//ul[contains(@class, 'e-list-parent')]//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
+//	                 + optionText.toLowerCase() + "')]";
+//			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//			 try {
+//				 WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+//				 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+//				 optionElement.click();
+//			 } catch (TimeoutException e) {
+//				 System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
+//			 } catch (ElementClickInterceptedException e) {
+//				 System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
+//				 WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
+//				 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+//	}
+//
+//		}
 		
+		
+		 public void EnterOnPriority(String values) {
+			 Priority.sendKeys(values);
+		 }
+		 
+		 
 		public void ClickOnPriority() {
 			try {
-	  			// Wait for the loading spinner to disappear
-
-	  			// Wait for the NextStep element to be clickable
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(Priority)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(Priority));
-
-	  			// Perform the click action
-	  			Priority.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Priority);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Priority);
 	  		} catch (ElementClickInterceptedException e) {
-	  			// Handle the exception if the click is intercepted
 	  			System.err.println("Element click intercepted: " + e.getMessage());
-
-	  			// Optionally, wait again for the spinner to disappear and retry clicking
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(Priority)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(Priority));
-	  			Priority.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Priority);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", Priority);
 	  		} catch (Exception e) {
-	  			// Handle other potential exceptions
 	  			System.err.println("An unexpected error occurred: " + e.getMessage());
 	  		}
 		}
@@ -134,14 +129,10 @@ public class RFA_Locators {
 		 public void selectDropdownOption(String optionText) {
 			    String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
 			                              + optionText.toLowerCase() + "')]";
-			    
 			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
 			    try {
 			        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
-
 			        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
 			        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 			        optionElement.click();
 			    } catch (TimeoutException e) {
@@ -162,24 +153,19 @@ public class RFA_Locators {
 		
 		public void ClickonWorkFlow() {
 			try {
-	  			// Wait for the loading spinner to disappear
-
-	  			// Wait for the NextStep element to be clickable
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(WorkFlow)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(WorkFlow));
-
-	  			// Perform the click action
-	  			WorkFlow.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", WorkFlow);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", WorkFlow);
 	  		} catch (ElementClickInterceptedException e) {
-	  			// Handle the exception if the click is intercepted
 	  			System.err.println("Element click intercepted: " + e.getMessage());
-
-	  			// Optionally, wait again for the spinner to disappear and retry clicking
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(WorkFlow)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(WorkFlow));
-	  			WorkFlow.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", WorkFlow);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", WorkFlow);
 	  		} catch (Exception e) {
-	  			// Handle other potential exceptions
 	  			System.err.println("An unexpected error occurred: " + e.getMessage());
 	  		}
 		}
@@ -196,28 +182,23 @@ public class RFA_Locators {
 		 }
 		
 		public void ClickOnEndDate() {
-	    	try {
-	  			// Wait for the loading spinner to disappear
-
-	  			// Wait for the NextStep element to be clickable
+			try {
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(EndDate)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(EndDate));
-
-	  			// Perform the click action
-	  			EndDate.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EndDate);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", EndDate);
 	  		} catch (ElementClickInterceptedException e) {
-	  			// Handle the exception if the click is intercepted
 	  			System.err.println("Element click intercepted: " + e.getMessage());
-
-	  			// Optionally, wait again for the spinner to disappear and retry clicking
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(EndDate)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(EndDate));
-	  			EndDate.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EndDate);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", EndDate);
 	  		} catch (Exception e) {
-	  			// Handle other potential exceptions
 	  			System.err.println("An unexpected error occurred: " + e.getMessage());
 	  		}
-	    }
+		}
 		
 		
 		
@@ -233,27 +214,22 @@ public class RFA_Locators {
 	    
 	    public void ClickOnStartDate() {
 	    	try {
-	  			// Wait for the loading spinner to disappear
-
-	  			// Wait for the NextStep element to be clickable
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	  			wait.until(ExpectedConditions.elementToBeClickable(StartDate));
-
-	  			// Perform the click action
-	  			StartDate.click();
+	  			wait.until(ExpectedConditions.visibilityOf(StartDate)); 
+	  			wait.until(ExpectedConditions.elementToBeClickable(EndDate));
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", StartDate);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", StartDate);
 	  		} catch (ElementClickInterceptedException e) {
-	  			// Handle the exception if the click is intercepted
 	  			System.err.println("Element click intercepted: " + e.getMessage());
-
-	  			// Optionally, wait again for the spinner to disappear and retry clicking
 	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(StartDate)); 
 	  			wait.until(ExpectedConditions.elementToBeClickable(StartDate));
-	  			StartDate.click();
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", StartDate);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", StartDate);
 	  		} catch (Exception e) {
-	  			// Handle other potential exceptions
 	  			System.err.println("An unexpected error occurred: " + e.getMessage());
 	  		}
-	    }
+		}
 		
 		public void EnterOnDescription(String values) {
 			Description.sendKeys(values);
@@ -283,33 +259,41 @@ public class RFA_Locators {
 	
 		public void ClickOnAddButton() {
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-				wait.until(ExpectedConditions.elementToBeClickable(AddButton));
-				AddButton.click();
-			} catch (ElementClickInterceptedException e) {
-				System.err.println("Element click intercepted: " + e.getMessage());
-				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-				wait.until(ExpectedConditions.elementToBeClickable(AddButton));
-				AddButton.click();
-			} catch (Exception e) {
-				System.err.println("An unexpected error occurred: " + e.getMessage());
-			}
+	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(AddButton)); 
+	  			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddButton);
+	  		} catch (ElementClickInterceptedException e) {
+	  			System.err.println("Element click intercepted: " + e.getMessage());
+	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(AddButton)); 
+	  			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddButton);
+	  		} catch (Exception e) {
+	  			System.err.println("An unexpected error occurred: " + e.getMessage());
+	  		}
 		}
 	
 	
 		public void ClickOnRFA() {
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-				wait.until(ExpectedConditions.elementToBeClickable(RFA));
-				RFA.click();
-			} catch (ElementClickInterceptedException e) {
-				System.err.println("Element click intercepted: " + e.getMessage());
-				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-				wait.until(ExpectedConditions.elementToBeClickable(RFA));
-				RFA.click();
-			} catch (Exception e) {
-				System.err.println("An unexpected error occurred: " + e.getMessage());
-			}
+	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(RFA)); 
+	  			wait.until(ExpectedConditions.elementToBeClickable(RFA));
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", RFA);
+	  		    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", RFA);
+	  		} catch (ElementClickInterceptedException e) {
+	  			System.err.println("Element click intercepted: " + e.getMessage());
+	  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  			wait.until(ExpectedConditions.visibilityOf(RFA)); 
+	  			wait.until(ExpectedConditions.elementToBeClickable(RFA));
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", RFA);
+	  			((JavascriptExecutor) driver).executeScript("arguments[0].click();", RFA);
+	  		} catch (Exception e) {
+	  			System.err.println("An unexpected error occurred: " + e.getMessage());
+	  		}
 		}
 	
 	

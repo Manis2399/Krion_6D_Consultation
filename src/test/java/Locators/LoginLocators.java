@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,7 +73,7 @@ public class LoginLocators {
 			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(LoginButton));
-
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", LoginButton);
 			// Perform the click action
 			LoginButton.click();
 		} catch (ElementClickInterceptedException e) {
@@ -82,6 +83,7 @@ public class LoginLocators {
 			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(LoginButton));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", LoginButton);
 			LoginButton.click();
 		} catch (Exception e) {
 			// Handle other potential exceptions

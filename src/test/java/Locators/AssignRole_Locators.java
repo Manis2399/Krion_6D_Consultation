@@ -6,6 +6,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -16,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AssignRole_Locators {
@@ -36,18 +38,32 @@ public class AssignRole_Locators {
     @FindBy(xpath = "//span[.='Setting']")
     private WebElement Setting; 
   
-    @FindBy(xpath = "//span[.='Assign role']")
+    @FindBy(xpath = "//span[.='Assign Role']")
     private WebElement AssignRole; 
   
     @FindBy(xpath = "//*[@id='btnAssignProjectUser']")
     private WebElement assignRoleButton;
 
-    @FindBy(xpath = "//select[@formcontrolname='roleId']")
+//    @FindBy(xpath = "//input[@placeholder='Select the role']")
+//    private WebElement SelectTheRole;
+    
+    @FindBy(xpath = "//*[@id='assignProjectUserModal']/div/div/div[2]/div/div/form/div[1]/div[1]/app-input/div/select")
     private WebElement SelectTheRole;
     
-    @FindBy(xpath = "//input[@formcontrolname='selectedUsers']")
+    
+    @FindBy(xpath = "//input[@placeholder='Select users']")
     private WebElement AddUser;
     
+    
+	@FindBy(xpath="//ejs-multiselect[starts-with(@id,'ej2_dropdownlist')]")
+	private WebElement userdropdownclick;
+	
+	
+	@FindBy(xpath="//ul[@class='e-list-parent e-ul ']/li")
+	private List<WebElement> userlist;
+    
+
+	
     @FindBy(xpath = "//button[.=' Assign ']")
     private WebElement AssignButton;
     
@@ -61,11 +77,38 @@ public class AssignRole_Locators {
     @FindBy(xpath = "//*[@id='btnAssignProjectUserGroup']")
     private WebElement AssignRoleForGroupButton;
 
-    @FindBy(xpath = "//select[@formcontrolname='roleId']")
+//    @FindBy(xpath = "//input[@placeholder='Select the role']")
+//    private WebElement SelectTheRoleForGroup;
+    
+    @FindBy(xpath = "//*[@id='assignUserGroupModal']/div/div/div[2]/div/div/form/div[1]/div[1]/app-input/div/select")
     private WebElement SelectTheRoleForGroup;
+    
+    
 	
     @FindBy(xpath = "//input[@formcontrolname='selectedUserGroups']")
     private WebElement Addgroup;
+    
+    
+    
+    
+    @FindBy(xpath="//ejs-multiselect[starts-with(@id,'ej2_dropdownlist')]")
+	private WebElement usergroupdropdownclick;
+	
+	@FindBy(xpath="//ul[@class='e-list-parent e-ul ']/li")
+	private List<WebElement> usergrouplist;
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -85,21 +128,114 @@ public class AssignRole_Locators {
     
     
     
+    public void selectRole(String role) {
+		Select ss= new Select(SelectTheRole);
+		ss.selectByVisibleText(role);
+	}
+	
+    public void selectroleforgroup(String role) {
+		Select ss= new Select(SelectTheRoleForGroup);
+		ss.selectByVisibleText(role);
+	}
+    
+    
+    
+    
+    
+	public void selectUser(String val) {
+		try {
+			//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	       // wait.until(ExpectedConditions.visibilityOfAllElements(userlist)); 
+			selectDropdown(userlist, val);
+		} catch (Exception e) {
+			System.out.println("User is not found :"+e.getMessage());
+		}
+	}
+    
+	
+	public void selectuserGroup(String val) {
+		try {
+			selectDropdown(usergrouplist, val);
+		} catch (Exception e) {
+			System.out.println("UserGroup is not found :"+e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+    
+	public void selectDropdown(List<WebElement>t,String comparetxt) throws Exception {
+		List<WebElement> elements=t;
+		Thread.sleep(2000);
+		for(WebElement s:elements) {
+			String txt=s.getText();
+			if(txt.equalsIgnoreCase(comparetxt)) {
+				s.click();
+				//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", s);
+				break;	
+			}
+			else {
+				System.out.println("Given Option is not found in the Dropdown List");
+			}
+		}
+		System.out.println("Given Option is Found ");
+	}
+ 		
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    public void selectDropdownUSERS(String userName) throws Exception {
+//		String dynamicXPath = "//*[@id='ej2_dropdownlist_10']";
+//		WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(dynamicXPath)));
+//	    searchField.click();
+//	    
+//	    List<WebElement> dropdownOptions = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//ul[@id='ej2_dropdownlist_10']/li")));
+//	    boolean optionFound = false;
+//	    for (WebElement option : dropdownOptions) {
+//	        String txt = option.getText();
+//	        System.out.println(option);
+//	        System.out.println(txt);
+//	       
+//	        if (txt.equalsIgnoreCase(userName)) {
+//	        	 option.click();
+//	            optionFound = true; // Mark that the option was found and clicked
+//	            break;
+//	        }
+//	    }
+//	    if (!optionFound) {
+//	        System.out.println("Given Option '" + userName + "' is not found in the Dropdown List");
+//	    } else {
+//	        System.out.println("Given Option '" + userName + "' is Found and clicked.");
+//	    }
+//	}
+    
+    
+    
+    
+    
+    
     
     
   public void selectUserFromDropdownForAddGroup(String userName) {
-        
-        // Construct the XPath for the user option
         String xpathExpression = "//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
                 + userName.toLowerCase() + "')]"; // Adjust according to actual HTML structure
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
-            // Wait for the dropdown option to be visible and clickable
             WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
-            // Scroll the option into view and click
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
             optionElement.click();
         } catch (TimeoutException e) {
@@ -116,24 +252,17 @@ public class AssignRole_Locators {
     
     public void ClickOnAddGroup() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(Addgroup));
+  			wait.until(ExpectedConditions.elementToBeClickable(usergroupdropdownclick));
 
-  			// Perform the click action
-  			Addgroup.click();
+  			usergroupdropdownclick.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
 
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(Addgroup));
-  			Addgroup.click();
+  			wait.until(ExpectedConditions.elementToBeClickable(usergroupdropdownclick));
+  			usergroupdropdownclick.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     }
@@ -143,17 +272,14 @@ public class AssignRole_Locators {
     
     
     public void selectDropdownOptionForRoleGroup(String optionText) {
-        // Construct the XPath for the option text in a case-insensitive manner
     	 String xpathExpression = "//*[@id='roleId']//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
                  + optionText.toLowerCase() + "')]";
         
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         try {
-            // Wait for the dropdown options to become clickable
             WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
 
-            // Scroll the element into view and click
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
             optionElement.click();
             
@@ -162,7 +288,6 @@ public class AssignRole_Locators {
         } catch (ElementClickInterceptedException e) {
             System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
             
-            // Try clicking via JavaScript as a fallback
             WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
         }
@@ -173,13 +298,9 @@ public class AssignRole_Locators {
     
     public void ClickOnSelectTheRoleInGroup() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(SelectTheRoleForGroup));
 
-  			// Perform the click action
   			SelectTheRoleForGroup.click();
   		} catch (ElementClickInterceptedException e) {
   			// Handle the exception if the click is intercepted
@@ -201,9 +322,6 @@ public class AssignRole_Locators {
     
     public void ClickOnAssignRoleForGroupButton() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AssignRoleForGroupButton));
 
@@ -228,34 +346,22 @@ public class AssignRole_Locators {
     
     public void ClickOnAssignRoleForGroupTab() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AssignRoleForGroupTab));
-
-  			// Perform the click action
-  			AssignRoleForGroupTab.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", AssignRoleForGroupTab);
+  			//AssignRoleForGroupTab.click();
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", AssignRoleForGroupTab);
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AssignRoleForGroupTab));
-  			AssignRoleForGroupTab.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", AssignRoleForGroupTab);
+  			//AssignRoleForGroupTab.click();
+ 			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", AssignRoleForGroupTab);
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -269,9 +375,6 @@ public class AssignRole_Locators {
     
     public void ClickOnAssignButton() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AssignButton));
 
@@ -337,24 +440,15 @@ public class AssignRole_Locators {
     
     public void ClickOnAddUser() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(AddUser));
-
-  			// Perform the click action
-  			AddUser.click();
+  			wait.until(ExpectedConditions.elementToBeClickable(userdropdownclick));
+  			userdropdownclick.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(AddUser));
-  			AddUser.click();
+  			wait.until(ExpectedConditions.elementToBeClickable(userdropdownclick));
+  			userdropdownclick.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}	
     }
@@ -363,24 +457,15 @@ public class AssignRole_Locators {
     
     public void ClickOnSelectTheRole() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(SelectTheRole));
-
-  			// Perform the click action
   			SelectTheRole.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(SelectTheRole));
   			SelectTheRole.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}	
     }
@@ -390,9 +475,6 @@ public class AssignRole_Locators {
     
     public void ClickOnAssignRoleButton() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(assignRoleButton));
 
@@ -417,9 +499,6 @@ public class AssignRole_Locators {
     
     public void ClickOnAssignRole() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AssignRole));
 
@@ -444,9 +523,6 @@ public class AssignRole_Locators {
 	
     public void ClickOnSetting() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Setting));
 
@@ -468,23 +544,6 @@ public class AssignRole_Locators {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public WebElement findTheRequiredProject(String projectName) {
         String dynamicXpath = "//tbody//tr//td//a[contains(text(),'" + projectName + "')]";
         return driver.findElement(By.xpath(dynamicXpath));
@@ -493,6 +552,7 @@ public class AssignRole_Locators {
     
     public void clickOnProject(String projectName) throws InterruptedException {
         WebElement projectElement = findTheRequiredProject(projectName);
+     	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", projectElement);
         wait.until(ExpectedConditions.elementToBeClickable(projectElement));
         Thread.sleep(2000);
         System.out.print(projectName);
@@ -503,6 +563,8 @@ public class AssignRole_Locators {
     
     
     public void EnterOnSearchBox(String values) throws AWTException, InterruptedException {
+    	((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+    	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", SearchBox);
     	wait.until(ExpectedConditions.elementToBeClickable(SearchBox));
     	SearchBox.sendKeys(values);
     	Thread.sleep(2000);
@@ -514,38 +576,21 @@ public class AssignRole_Locators {
     
     public void ClickOnSearchBox() {
     	try {
-	        // Wait for the loading spinner to disappear (if applicable)
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        wait.until(ExpectedConditions.elementToBeClickable(SearchBox));
-
-	        // Perform the click action using JavaScript Executor
 	        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 	        jsExecutor.executeScript("arguments[0].click();", SearchBox);
 	        
 	    } catch (ElementClickInterceptedException e) {
-	        // Handle the exception if the click is intercepted
 	        System.err.println("Element click intercepted: " + e.getMessage());
-	        
-	        // Optionally, wait again for the spinner to disappear and retry clicking
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        wait.until(ExpectedConditions.elementToBeClickable(SearchBox));
-	        
-	        // Retry click with JavaScript Executor
 	        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 	        jsExecutor.executeScript("arguments[0].click();", SearchBox);
-	        
 	    } catch (Exception e) {
-	        // Handle other potential exceptions
 	        System.err.println("An unexpected error occurred: " + e.getMessage());
 	    }
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     

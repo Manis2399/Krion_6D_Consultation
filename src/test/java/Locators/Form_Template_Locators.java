@@ -65,7 +65,7 @@ public class Form_Template_Locators {
 			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(ClickCreateButton));
-
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ClickCreateButton);
 			// Perform the click action
 			ClickCreateButton.click();
 		} catch (ElementClickInterceptedException e) {
@@ -75,6 +75,7 @@ public class Form_Template_Locators {
 			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(ClickCreateButton));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ClickCreateButton);
 			ClickCreateButton.click();
 		} catch (Exception e) {
 			// Handle other potential exceptions
@@ -100,7 +101,7 @@ public class Form_Template_Locators {
 			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(ADDFormTemplate));
-
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ADDFormTemplate);
 			// Perform the click action
 			ADDFormTemplate.click();
 		} catch (ElementClickInterceptedException e) {
@@ -110,6 +111,7 @@ public class Form_Template_Locators {
 			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(ADDFormTemplate));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ADDFormTemplate);
 			ADDFormTemplate.click();
 		} catch (Exception e) {
 			// Handle other potential exceptions
@@ -129,6 +131,7 @@ public class Form_Template_Locators {
 
 	        // Perform the click action using JavaScript Executor
 	        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", FormTemplate);
 	        jsExecutor.executeScript("arguments[0].click();", FormTemplate);
 	        
 	    } catch (ElementClickInterceptedException e) {
@@ -141,6 +144,7 @@ public class Form_Template_Locators {
 	        
 	        // Retry click with JavaScript Executor
 	        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", FormTemplate);
 	        jsExecutor.executeScript("arguments[0].click();", FormTemplate);
 	        
 	    } catch (Exception e) {

@@ -4,6 +4,8 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -30,6 +32,7 @@ public class Meeting_Share_Locators {
 	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-meeting-list/section/div/div[1]/div/div[2]/button")
 	 private WebElement AddButton;
 
+
 	 @FindBy(xpath = "//input[@placeholder='Enter title']")
 	 private WebElement Name;
 	 
@@ -54,10 +57,10 @@ public class Meeting_Share_Locators {
 	 @FindBy(xpath = "//input[@placeholder='Enter notes']")
 	 private WebElement EnterNotes;
 	 
-	 @FindBy(xpath = "//button[.=' Select users ']")
+	 @FindBy(xpath = "//button[.=' Select Users ']")
 	 private WebElement SelectUsersTab;
 	 
-	 @FindBy(xpath = "//*[@id='user-group-tab']")
+	 @FindBy(xpath = "//button[.=' Select User Groups ']")
 	 private WebElement SelectedUserGroupsTab;
 	 
 	 @FindBy(xpath = "//*[@id='multiUser']/div/div/span[3]/input")
@@ -72,11 +75,99 @@ public class Meeting_Share_Locators {
 	 
 	 
 	 
+	    @FindBy(xpath="//ejs-multiselect[@id='multiUser']")
+		private WebElement userclick;
+		
+		@FindBy(xpath="//ul[@class='e-list-parent e-ul ']/li")
+		private List<WebElement> userslist;
+	 
+		@FindBy(xpath="//ejs-multiselect[@id='multiUserGroup']")
+		private WebElement usergroupclick;
+		
+		@FindBy(xpath="//ul[@class='e-list-parent e-ul ']/li")
+		private List<WebElement> usersgrouplist;
+		
+		
+	 
 	 
 	public Meeting_Share_Locators(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(35));
 		PageFactory.initElements(driver, this);
+	}
+	
+	
+	
+	
+	
+	
+	public void ClickOnSelectUserField() {
+	    try {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.elementToBeClickable(userclick));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", userclick);
+	        userclick.click();
+	    } catch (ElementClickInterceptedException e) {
+	        System.err.println("Element click intercepted: " + e.getMessage());
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.elementToBeClickable(userclick));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", userclick);
+	        userclick.click();
+	    } catch (Exception e) {
+	        System.err.println("Error clicking Select Users tab: " + e.getMessage());
+	    }
+	}
+
+	public void ClickOnSelectUserGroupField() {
+	    try {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.elementToBeClickable(usergroupclick));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", usergroupclick);
+	        usergroupclick.click();
+	    } catch (ElementClickInterceptedException e) {
+	        System.err.println("Element click intercepted: " + e.getMessage());
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.elementToBeClickable(usergroupclick));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", usergroupclick);
+	        usergroupclick.click();
+	    } catch (Exception e) {
+	        System.err.println("Error clicking Select User Group tab: " + e.getMessage());
+	    }
+	}
+
+	
+	
+	public void Selectusers(String value) {
+		try {
+			selectDropdown(userslist, value);
+		} catch (Exception e) {
+			System.out.println("User is not found :"+e.getMessage());
+		}
+	}
+	
+	public void Selectusersgroup(String value) {
+		try {
+			selectDropdown(userslist, value);
+		} catch (Exception e) {
+			System.out.println("User is not found :"+e.getMessage());
+		}
+	}
+	
+	
+	public void selectDropdown(List<WebElement>t,String comparetxt) throws Exception {
+		List<WebElement> elements=t;
+		Thread.sleep(2000);
+		for(WebElement s:elements) {
+			String txt=s.getText();
+			if(txt.equalsIgnoreCase(comparetxt)) {
+				s.click();
+				break;	
+			}
+			else {
+				System.out.println("Given Option is not found in the Dropdown List");
+			}
+		}
+		System.out.println("Given Option is Found ");
 	}
 	
 	
@@ -120,26 +211,6 @@ public class Meeting_Share_Locators {
 	    }
 	
 
-	 
-	 
-	 public void EnterOnSearchUserGroup(String value)throws AWTException, InterruptedException  {
-		 wait.until(ExpectedConditions.elementToBeClickable(SearchUserGroup));
-		    SearchUserGroup.sendKeys(value);
-		    Thread.sleep(2000);
-		    Robot robot = new Robot();
-		    robot.keyPress(KeyEvent.VK_ENTER);
-		    robot.keyRelease(KeyEvent.VK_ENTER);
-	 }
-	 
-	
-	 public void EnterOnSearchUser(String values) throws AWTException, InterruptedException {
-		    wait.until(ExpectedConditions.elementToBeClickable(SearchUser));
-		    SearchUser.sendKeys(values);
-		    Thread.sleep(2000);
-		    Robot robot = new Robot();
-		    robot.keyPress(KeyEvent.VK_ENTER);
-		    robot.keyRelease(KeyEvent.VK_ENTER);
-		}
 
 	 
 	 
@@ -148,11 +219,13 @@ public class Meeting_Share_Locators {
 	    try {
 	    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectUsersTab));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SelectUsersTab);
 	        SelectUsersTab.click();
 	    } catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectUsersTab));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SelectUsersTab);
 			SelectUsersTab.click();
 	    } catch (Exception e) {
 	        System.err.println("Error clicking Select Users tab: " + e.getMessage());
@@ -163,40 +236,20 @@ public class Meeting_Share_Locators {
 	    try {
 	    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectedUserGroupsTab));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SelectedUserGroupsTab);
 			SelectedUserGroupsTab.click();
 	    	}catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SelectedUserGroupsTab));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SelectedUserGroupsTab);
 			SelectedUserGroupsTab.click();
 	    } catch (Exception e) {
 	        System.err.println("Error clicking Select Group Users tab: " + e.getMessage());
 	    }
 	}
 
-	public void SearchAndSelectUser(String userName) {
-	    try {
-	        SearchUser.sendKeys(userName);
-	        // Wait for the dropdown to show results and select the user
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        WebElement userOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(), '" + userName + "')]")));
-	        userOption.click();
-	    } catch (Exception e) {
-	        System.err.println("Error searching/selecting user: " + e.getMessage());
-	    }
-	}
 
-	public void SearchAndSelectGroupUser(String groupUserName) {
-	    try {
-	        SearchUserGroup.sendKeys(groupUserName);
-	        // Wait for the dropdown to show results and select the group user
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        WebElement groupUserOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(), '" + groupUserName + "')]")));
-	        groupUserOption.click();
-	    } catch (Exception e) {
-	        System.err.println("Error searching/selecting group user: " + e.getMessage());
-	    }
-	}
 
 	
 	
@@ -204,11 +257,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SearchUserGroup));
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 250);");
 			SearchUserGroup.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SearchUserGroup));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SearchUser);
 			SearchUserGroup.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -220,11 +275,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SearchUser));
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 250);");
 			SearchUser.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(SearchUser));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SearchUser);
 			SearchUser.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -239,8 +296,8 @@ public class Meeting_Share_Locators {
 	    try {
 	        // Use the index to locate the specific input field for entering notes
 	        WebElement noteField = driver.findElement(By.xpath("(//input[@placeholder='Enter notes'])[" + (index + 1) + "]"));
-	        
-	        // Enter the note in the specific field
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.visibilityOf(noteField));
 	        noteField.sendKeys(note);
 	    } catch (Exception e) {
 	        System.err.println("An error occurred while entering note: " + e.getMessage());
@@ -254,11 +311,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(EnterNotes));
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 250);");
 			EnterNotes.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(AddNotes));
+			wait.until(ExpectedConditions.elementToBeClickable(EnterNotes));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EnterNotes);
 			EnterNotes.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -271,11 +330,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddNotes));
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 250);");
 			AddNotes.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddNotes));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddNotes);
 			AddNotes.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -285,7 +346,9 @@ public class Meeting_Share_Locators {
 	
 	
 	public void EnterOnDescription(String values) {
-		Description.sendKeys(values);
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		 WebElement Descriptions = wait.until(ExpectedConditions.elementToBeClickable(Description));
+		 Descriptions.sendKeys(values);
 	}
 	
 	public void ClearOnDescription() {
@@ -293,11 +356,16 @@ public class Meeting_Share_Locators {
 	}
 	
 	public void EnterOnDurationMinutes(String value) {
-		DurationMinutes.sendKeys(value);
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		 WebElement DurationMinutess = wait.until(ExpectedConditions.elementToBeClickable(DurationMinutes));
+		 DurationMinutess.sendKeys(value);
+		
 	}
 	
 	public void EnterOnDurationHours(String value) {
-		DurationHours.sendKeys(value);
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		 WebElement DurationHourss = wait.until(ExpectedConditions.elementToBeClickable(DurationHours));
+		 DurationHourss.sendKeys(value);
 	}
 	
 	public void ClearOnDurationHours() {
@@ -310,7 +378,9 @@ public class Meeting_Share_Locators {
 	
 	
 	public void EnterOnTime(String value) {
-		Time.sendKeys(value);
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		 WebElement Times = wait.until(ExpectedConditions.elementToBeClickable(Time));
+		 Times.sendKeys(value);
 	}
 	
 	public void ClearOnTime() {
@@ -349,11 +419,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Date));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Date);
 			Date.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Date));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Date);
 			Date.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -364,7 +436,9 @@ public class Meeting_Share_Locators {
 	
 	
 	public void EnterOnName(String value) {
-		Name.sendKeys(value);
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		    WebElement Names = wait.until(ExpectedConditions.elementToBeClickable(Name));
+		    Names.sendKeys(value);
 	}
 	
 	
@@ -372,11 +446,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
 			AddButton.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
 			AddButton.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -387,11 +463,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Meeting));
+			  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Meeting);
 			Meeting.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Meeting));
+			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Meeting);
 			Meeting.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
@@ -402,11 +480,13 @@ public class Meeting_Share_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Share));
+			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Share);
 			Share.click();
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(Share));
+			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Share);
 			Share.click();
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());

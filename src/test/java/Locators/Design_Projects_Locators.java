@@ -50,6 +50,9 @@ public class Design_Projects_Locators {
     @FindBy(xpath = "//span[@formcontrolname='design_type']")
     private WebElement ProjectDesignType; 
     
+//    @FindBy(xpath = " //input[@placeholder='Select a design type']")
+//    private WebElement ProjectDesignType; 
+// 
     @FindBy(xpath = "//span[@formcontrolname='category']")
     private WebElement ProjectCategory; 
     
@@ -79,6 +82,24 @@ public class Design_Projects_Locators {
     
     
     
+    @FindBy(xpath = "//div[.='Error']")
+	public WebElement Error;
+    
+    
+    @FindBy(xpath = "//div[.='Error code 400']")
+    public WebElement ErrorForFieldAlreadyExists; 
+    
+    @FindBy(xpath = "//div[.='Error code 500']")
+    public WebElement ErrorCode500;
+    
+    
+    @FindBy(xpath = "//div[.='Success']")
+    public WebElement Success; 
+    
+    
+    
+    
+    
     
     public Design_Projects_Locators(WebDriver driver) {
 		// initialize elements
@@ -90,26 +111,53 @@ public class Design_Projects_Locators {
     
     
     
+    
+    
+    public boolean isElementVisible(WebElement element) {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void EnterOnCountry(String values) {
-    	Country.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Countrys = wait.until(ExpectedConditions.elementToBeClickable(Country));
+	    Countrys.sendKeys(values);
     }
     
     
     
     public void EnterOnPincode(String values) {
-    	Pincode.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Pincodes = wait.until(ExpectedConditions.elementToBeClickable(Pincode));
+	    Pincodes.sendKeys(values);
     }
     
     
     
     public void EnterOnState(String values) {
-    	State.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement States = wait.until(ExpectedConditions.elementToBeClickable(State));
+	    States.sendKeys(values);
     }
     
     
     
     public void EnterOnCity(String values) {
-    	City.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement Citys = wait.until(ExpectedConditions.elementToBeClickable(City));
+	    Citys.sendKeys(values);
     }
     
     
@@ -117,41 +165,41 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnAddressLine2(String values) {
-    	AddressLine2.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement AddressLine2s = wait.until(ExpectedConditions.elementToBeClickable(AddressLine2));
+	    AddressLine2s.sendKeys(values);
     } 
     
     
     
     public void EnterOnAddressLine1(String values) {
-    	AddressLine1.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement AddressLine1s = wait.until(ExpectedConditions.elementToBeClickable(AddressLine1));
+	    AddressLine1s.sendKeys(values);
     }  
     
 
     public void EnterOnProjectOwnerSelection(String values) {
-    	ProjectOwnerSelection.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectOwnerSelections = wait.until(ExpectedConditions.elementToBeClickable(ProjectOwnerSelection));
+	    ProjectOwnerSelections.sendKeys(values);
     }
     
     
     public void ClickOnProjectOwnerSelection() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectOwnerSelection));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectOwnerSelection);
   			ProjectOwnerSelection.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
 
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectOwnerSelection));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectOwnerSelection);
   			ProjectOwnerSelection.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     } 
@@ -163,30 +211,27 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectCategory(String values) {
-    	ProjectCategory.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectCategorys = wait.until(ExpectedConditions.elementToBeClickable(ProjectCategory));
+	    ProjectCategorys.sendKeys(values);
     }
     
     
     public void ClickOnProjectCategory() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectCategory));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectCategory);
   			ProjectCategory.click();
   		} catch (ElementClickInterceptedException e) {
   			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
 
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectCategory));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectCategory);
   			ProjectCategory.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     } 
@@ -201,30 +246,25 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectStatus(String values) {
-    	ProjectStatus.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectStatuss = wait.until(ExpectedConditions.elementToBeClickable(ProjectStatus));
+	    ProjectStatuss.sendKeys(values);
     }
     
     
     public void ClickOnProjectStatus() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectStatus));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectStatus);
   			ProjectStatus.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectStatus));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectStatus);
   			ProjectStatus.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     } 
@@ -237,30 +277,26 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectDesignType(String values) {
-    	ProjectDesignType.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectDesignTypes = wait.until(ExpectedConditions.elementToBeClickable(ProjectDesignType));
+	    ProjectDesignTypes.sendKeys(values);
     }
     
     
     public void ClickOnProjectDesignType() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectDesignType));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectDesignType);
   			ProjectDesignType.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
 
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectDesignType));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectDesignType);
   			ProjectDesignType.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     } 
@@ -285,24 +321,17 @@ public class Design_Projects_Locators {
     
     public void ClickOnStartDate() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(StartDate));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", StartDate);
   			StartDate.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(StartDate));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", StartDate);
   			StartDate.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
     }
@@ -314,7 +343,9 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectDescrpt(String values) {
-    	ProjectDescription.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectDescriptions = wait.until(ExpectedConditions.elementToBeClickable(ProjectDescription));
+	    ProjectDescriptions.sendKeys(values);
     }
     
     
@@ -325,13 +356,9 @@ public class Design_Projects_Locators {
     
     public void ClickOnProjectDescrpt() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectDescription));
-
-  			// Perform the click action
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectDescription);
   			ProjectDescription.click();
   		} catch (ElementClickInterceptedException e) {
   			// Handle the exception if the click is intercepted
@@ -340,6 +367,7 @@ public class Design_Projects_Locators {
   			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectDescription));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectDescription);
   			ProjectDescription.click();
   		} catch (Exception e) {
   			// Handle other potential exceptions
@@ -353,7 +381,9 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectName(String values) {
-    	ProjectName.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectNames = wait.until(ExpectedConditions.elementToBeClickable(ProjectName));
+	    ProjectNames.sendKeys(values);
     }
     
     
@@ -364,12 +394,9 @@ public class Design_Projects_Locators {
     
     public void ClickOnProjectName() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectName));
-
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectName);
   			// Perform the click action
   			ProjectName.click();
   		} catch (ElementClickInterceptedException e) {
@@ -379,6 +406,7 @@ public class Design_Projects_Locators {
   			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectName));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectName);
   			ProjectName.click();
   		} catch (Exception e) {
   			// Handle other potential exceptions
@@ -391,7 +419,9 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectCode(String values) {
-    	ProjectCode.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectCodes = wait.until(ExpectedConditions.elementToBeClickable(ProjectCode));
+	    ProjectCodes.sendKeys(values);
     }
     
     
@@ -402,12 +432,9 @@ public class Design_Projects_Locators {
     
     public void ClickOnProjectCode() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectCode));
-
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectCode);
   			// Perform the click action
   			ProjectCode.click();
   		} catch (ElementClickInterceptedException e) {
@@ -417,6 +444,7 @@ public class Design_Projects_Locators {
   			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectCode));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectCode);
   			ProjectCode.click();
   		} catch (Exception e) {
   			// Handle other potential exceptions
@@ -428,19 +456,18 @@ public class Design_Projects_Locators {
     
     
     public void EnterOnProjectTemplate(String values) {
-    	ProjectTemplate.sendKeys(values);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement ProjectTemplates = wait.until(ExpectedConditions.elementToBeClickable(ProjectTemplate));
+	    ProjectTemplates.sendKeys(values);
     }
     
     
     
     public void ClickOnProjectTemplate() {
     	try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectTemplate));
-
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectTemplate);
   			// Perform the click action
   			ProjectTemplate.click();
   		} catch (ElementClickInterceptedException e) {
@@ -450,6 +477,7 @@ public class Design_Projects_Locators {
   			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(ProjectTemplate));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectTemplate);
   			ProjectTemplate.click();
   		} catch (Exception e) {
   			// Handle other potential exceptions
@@ -461,7 +489,7 @@ public class Design_Projects_Locators {
     
     public void selectDropdownOption(String optionText) {
 	    // Construct the XPath for the option text in a case-insensitive manner
-	    String xpathExpression = "//mat-option//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
+	    String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
 	                              + optionText.toLowerCase() + "')]";
 	    
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -491,24 +519,17 @@ public class Design_Projects_Locators {
     
   	public void ClickOnProjectWithoutISO() {
   		try {
-  			// Wait for the loading spinner to disappear
-
-  			// Wait for the NextStep element to be clickable
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(AddProjectButton));
-
-  			// Perform the click action
-  			AddProjectButton.click();
+  			wait.until(ExpectedConditions.elementToBeClickable(ProjectWithoutISO));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectWithoutISO);
+  			ProjectWithoutISO.click();
   		} catch (ElementClickInterceptedException e) {
-  			// Handle the exception if the click is intercepted
   			System.err.println("Element click intercepted: " + e.getMessage());
-
-  			// Optionally, wait again for the spinner to disappear and retry clicking
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(AddProjectButton));
-  			AddProjectButton.click();
+  			wait.until(ExpectedConditions.elementToBeClickable(ProjectWithoutISO));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ProjectWithoutISO);
+  			ProjectWithoutISO.click();
   		} catch (Exception e) {
-  			// Handle other potential exceptions
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
   	}
@@ -520,12 +541,9 @@ public class Design_Projects_Locators {
     
 	public void ClickOnAddProjectButton() {
 		try {
-			// Wait for the loading spinner to disappear
-
-			// Wait for the NextStep element to be clickable
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddProjectButton));
-
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddProjectButton);
 			// Perform the click action
 			AddProjectButton.click();
 		} catch (ElementClickInterceptedException e) {
@@ -535,6 +553,7 @@ public class Design_Projects_Locators {
 			// Optionally, wait again for the spinner to disappear and retry clicking
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddProjectButton));
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddProjectButton);
 			AddProjectButton.click();
 		} catch (Exception e) {
 			// Handle other potential exceptions
@@ -547,28 +566,20 @@ public class Design_Projects_Locators {
 	
 	public void ClickOnDesignProject() {
 		  try {
-		        // Wait for the loading spinner to disappear (if applicable)
 		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		        wait.until(ExpectedConditions.elementToBeClickable(DesignProject));
-
-		        // Perform the click action using JavaScript Executor
 		        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", DesignProject);
 		        jsExecutor.executeScript("arguments[0].click();", DesignProject);
 		        
 		    } catch (ElementClickInterceptedException e) {
-		        // Handle the exception if the click is intercepted
 		        System.err.println("Element click intercepted: " + e.getMessage());
-		        
-		        // Optionally, wait again for the spinner to disappear and retry clicking
 		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		        wait.until(ExpectedConditions.elementToBeClickable(DesignProject));
-		        
-		        // Retry click with JavaScript Executor
 		        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", DesignProject);
 		        jsExecutor.executeScript("arguments[0].click();", DesignProject);
-		        
 		    } catch (Exception e) {
-		        // Handle other potential exceptions
 		        System.err.println("An unexpected error occurred: " + e.getMessage());
 		    }
 	}

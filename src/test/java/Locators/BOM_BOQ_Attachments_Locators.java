@@ -26,52 +26,53 @@ public class BOM_BOQ_Attachments_Locators {
 	 @FindBy(xpath = "//span[.='BOM/BOQ']")
 	 private WebElement BOM_BOQ;
 	 
-	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-bom-list/section/div/div[1]/div/div[2]/button")
+	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-bom-list/section/div/div[1]/div/div[2]/div/div[2]/button")
 	 private WebElement AddButton;
+
 
 	 @FindBy(xpath = "//select[@formcontrolname='parentBomID']")
 	 private WebElement ParentBOM;
 	
-	 @FindBy(xpath = "//input[@placeholder='Enter BOM item code']")
+	 @FindBy(xpath = "//input[@placeholder='Enter bom code']")
 	 private WebElement EnterCode;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter BOM item name']")
+	 @FindBy(xpath = "//input[@placeholder='Enter bom name']")
 	 private WebElement EnterName;
 	 
-	 @FindBy(xpath = "//select[@formcontrolname='reviewID']")
+	 @FindBy(xpath = "//input[@placeholder='Select the workflow']")
 	 private WebElement Workflow;
 	    
-	 @FindBy(xpath = "//ejs-dropdownlist[@formcontrolname='priorityId']")
+	 @FindBy(xpath = "//input[@placeholder='Select the priority']")
 	 private WebElement Priority;
 	
-	 @FindBy(xpath = "//span[@formcontrolname='unitId']")
+	 @FindBy(xpath = "//input[@placeholder='Select the unit']")
 	 private WebElement Unit;
 	 
 	 @FindBy(xpath = "//input[@placeholder='Enter estimated quantity']")
 	 private WebElement EstimatedQuantity;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter estimated price total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter estimated price per unit']")
 	 private WebElement EstimatedPricePerUnit;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Estimated total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter estimated total']")
 	 private WebElement EstimatedTotal;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter ordered quantity']")
+	 @FindBy(xpath = "//input[@id='orderedQuantity']")
 	 private WebElement OrderedQuantity;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter quoted price total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter quoted price']")
 	 private WebElement QuotedPricePerUnit;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Quoted total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter quoted total']")
 	 private WebElement QuotedTotal;
 	 
 	 @FindBy(xpath = "//input[@placeholder='Enter actual quantity']")
 	 private WebElement ActualQuantity;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Enter actual price total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter actual price']")
 	 private WebElement ActualPricePerUnit;
 	 
-	 @FindBy(xpath = "//input[@placeholder='Actual total']")
+	 @FindBy(xpath = "//input[@placeholder='Enter actual total']")
 	 private WebElement ActualTotal;
 	 
 	 @FindBy(xpath = "//input[@placeholder='Enter remarks']")
@@ -80,23 +81,24 @@ public class BOM_BOQ_Attachments_Locators {
 	 @FindBy(xpath = "//input[@placeholder='Enter guid']")
 	 private WebElement GUID;
 	 
-	 @FindBy(xpath = "//input[@id='file-upload']")
+	 @FindBy(xpath = "//*[@id='file-upload']")
 	 private WebElement AttachQRCode;
 	 
 	 @FindBy(xpath = "//button[.=' Add Properties ']")
 	 private WebElement AddPropertiesButton;
 	 
-	 @FindBy(xpath = "//input[@id='propertyName']")
+	 @FindBy(xpath = "//input[@placeholder='Enter field name']")
 	 private WebElement PropertyName;
 	 
-	 @FindBy(xpath = "//input[@id='propertyValue']")
+	 @FindBy(xpath = "//input[@placeholder='Enter field value']")
 	 private WebElement PropertyValue;
 	 
-	 @FindBy(xpath = "//button[.='Submit']")
-	 private WebElement SubmitButton;
+//	 @FindBy(xpath = "//button[.='Submit']")
+//	 private WebElement SubmitButton;
 	 
-	 @FindBy(xpath = "//button[.=' Create ']")
+	 @FindBy(xpath = "//*[@id='main']/app-project-management/app-project-bom-add-edit/section/div/div[2]/div/div/form/div[2]/div/div/app-common-button/div/div[2]/button")
 	 private WebElement CreateButton;
+
 	 
 	 
 	 
@@ -114,36 +116,42 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnCreateButton() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(CreateButton)); 
   			wait.until(ExpectedConditions.elementToBeClickable(CreateButton));
-  			CreateButton.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", CreateButton);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", CreateButton);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(CreateButton));
-  			CreateButton.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", CreateButton);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", CreateButton);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
 	}
+
 	
 	
 	
 	
 	
-	public void ClickOnSubmitButton() {
-		try {
-  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(SubmitButton));
-  			SubmitButton.click();
-  		} catch (ElementClickInterceptedException e) {
-  			System.err.println("Element click intercepted: " + e.getMessage());
-  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-  			wait.until(ExpectedConditions.elementToBeClickable(SubmitButton));
-  			SubmitButton.click();
-  		} catch (Exception e) {
-  			System.err.println("An unexpected error occurred: " + e.getMessage());
-  		}
-	}
+//	public void ClickOnSubmitButton() {
+//		try {
+//  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//  			wait.until(ExpectedConditions.elementToBeClickable(SubmitButton));
+//  			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SubmitButton);
+//  			SubmitButton.click();
+//  		} catch (ElementClickInterceptedException e) {
+//  			System.err.println("Element click intercepted: " + e.getMessage());
+//  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//  			wait.until(ExpectedConditions.elementToBeClickable(SubmitButton));
+//  			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", SubmitButton);
+//  			SubmitButton.click();
+//  		} catch (Exception e) {
+//  			System.err.println("An unexpected error occurred: " + e.getMessage());
+//  		}
+//	}
 	
 	
 	
@@ -159,13 +167,16 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnPropertyValue() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(PropertyValue)); 
   			wait.until(ExpectedConditions.elementToBeClickable(PropertyValue));
-  			PropertyValue.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", PropertyValue);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", PropertyValue);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(PropertyValue));
-  			PropertyValue.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", PropertyValue);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", PropertyValue);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -180,13 +191,16 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnPropertyName() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(AddPropertiesButton)); 
   			wait.until(ExpectedConditions.elementToBeClickable(PropertyName));
-  			PropertyName.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", PropertyName);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", PropertyName);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(PropertyName));
-  			PropertyName.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", PropertyName);
+ 			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", PropertyName);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -202,13 +216,16 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnAddPropertiesButton() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(AddPropertiesButton)); 
   			wait.until(ExpectedConditions.elementToBeClickable(AddPropertiesButton));
-  			AddPropertiesButton.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddPropertiesButton);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddPropertiesButton);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(AddPropertiesButton));
-  			AddPropertiesButton.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddPropertiesButton);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddPropertiesButton);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -350,36 +367,70 @@ public class BOM_BOQ_Attachments_Locators {
 	}
 	
 	
-	 public void selectDropdownOptionForUnit(String optionText) {
-		    String xpathExpression = "//mat-option//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
-		                              + optionText.toLowerCase() + "')]";
-		    
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		    try {
-		        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
-		        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
-		        optionElement.click();
-		    } catch (TimeoutException e) {
-		        System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
-		    } catch (ElementClickInterceptedException e) {
-		        System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-		        WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
-		    }
-		}
+//	 public void selectDropdownOptionForUnit(String optionText) {
+//		    String xpathExpression = "//mat-option//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
+//		                              + optionText.toLowerCase() + "')]";
+//		    
+//		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		    try {
+//		        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
+//		        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+//		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+//		        optionElement.click();
+//		    } catch (TimeoutException e) {
+//		        System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
+//		    } catch (ElementClickInterceptedException e) {
+//		        System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
+//		        WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
+//		        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+//		    }
+//		}
+	
+	
+
+public void selectDropdownOptionForUnit(String optionText) {
+	    // Construct the XPath for the option text in a case-insensitive manner
+	    String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
+	                              + optionText.toLowerCase() + "')]";
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    try {
+	        // Wait for the overlay to disappear (if it exists)
+	        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
+
+	        // Wait for the dropdown option to be visible and clickable
+	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+
+	        // Scroll the element into view (if needed) and click
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+	        optionElement.click();
+	    } catch (TimeoutException e) {
+	        System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
+	    } catch (ElementClickInterceptedException e) {
+	        System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
+	        
+	        // Try clicking via JavaScript as a fallback
+	        WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+	    }
+	}
+	
 	
 	 
 	public void ClickOnUnit() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Unit));
   			wait.until(ExpectedConditions.elementToBeClickable(Unit));
-  			Unit.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Unit);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Unit);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Unit));
-  			Unit.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Unit);
+ 			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Unit);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -390,38 +441,71 @@ public class BOM_BOQ_Attachments_Locators {
 	
 	
 	
-	public void selectDropdownOptionForPriority(String optionText) {
-		 String xpathExpression = "//ul[contains(@class, 'e-list-parent')]//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
-                + optionText.toLowerCase() + "')]";
-		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		 try {
-			 WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
-			 optionElement.click();
-		 } catch (TimeoutException e) {
-			 System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
-		 } catch (ElementClickInterceptedException e) {
-			 System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-			 WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
-			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
-}
-	}
+//	public void selectDropdownOptionForPriority(String optionText) {
+//		 String xpathExpression = "//ul[contains(@class, 'e-list-parent')]//li[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
+//                + optionText.toLowerCase() + "')]";
+//		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		 try {
+//			 WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+//			 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+//			 optionElement.click();
+//		 } catch (TimeoutException e) {
+//			 System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
+//		 } catch (ElementClickInterceptedException e) {
+//			 System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
+//			 WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
+//			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+//}
+//	}
 
 	
+
+public void selectDropdownOptionForPriority(String optionText) {
+	    // Construct the XPath for the option text in a case-insensitive manner
+	    String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" 
+	                              + optionText.toLowerCase() + "')]";
+	    
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    try {
+	        // Wait for the overlay to disappear (if it exists)
+	        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
+
+	        // Wait for the dropdown option to be visible and clickable
+	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+
+	        // Scroll the element into view (if needed) and click
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
+	        optionElement.click();
+	    } catch (TimeoutException e) {
+	        System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
+	    } catch (ElementClickInterceptedException e) {
+	        System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
+	        
+	        // Try clicking via JavaScript as a fallback
+	        WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
+	    }
+	}
 	
-	
+	public void EnterOnPriority(String value) {
+		Priority.sendKeys(value);
+	}
 	
 	
 	public void ClickOnPriority() {
 		try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Priority));
   			wait.until(ExpectedConditions.elementToBeClickable(Priority));
-  			Priority.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Priority);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Priority);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   			wait.until(ExpectedConditions.elementToBeClickable(Priority));
-  			Priority.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Priority);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Priority);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -430,41 +514,45 @@ public class BOM_BOQ_Attachments_Locators {
 	
 	
 	public void selectDropdownOptionForWorkFlow(String optionText) throws InterruptedException {
-	    // Construct the XPath for the option text in a case-insensitive manner
 		 String xpathExpression = "//select//option[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
                  + optionText.toLowerCase() + "')]";
-
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
 	    try {
 	        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cdk-overlay-backdrop")));
-
 	        WebElement optionElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", optionElement);
 	        Thread.sleep(1000);
-	        optionElement.click();
+	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
 	    } catch (TimeoutException e) {
 	        System.out.println("The dropdown option '" + optionText + "' is not found or not clickable within the timeout.");
 	    } catch (ElementClickInterceptedException e) {
 	        System.out.println("Element click intercepted for '" + optionText + "'. Trying to click via JavaScript.");
-
 	        WebElement optionElement = driver.findElement(By.xpath(xpathExpression));
 	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", optionElement);
 	    }
 	} 
 	
 	
+	public void EnterOnWorkflow(String value) {
+		Workflow.sendKeys(value);
+	}
+	
+	
 	public void ClickOnWorkflow() {
     	try {
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Workflow));
+  			wait.until(ExpectedConditions.visibilityOf(Workflow)); 
   			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
-  			Workflow.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Workflow);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Workflow);
   		} catch (ElementClickInterceptedException e) {
   			System.err.println("Element click intercepted: " + e.getMessage());
   			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Workflow)); 
   			wait.until(ExpectedConditions.elementToBeClickable(Workflow));
-  			Workflow.click();
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Workflow);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Workflow);
   		} catch (Exception e) {
   			System.err.println("An unexpected error occurred: " + e.getMessage());
   		}
@@ -500,13 +588,16 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnCode() {
 		 try {
 				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.visibilityOf(EnterCode));
 				wait.until(ExpectedConditions.elementToBeClickable(EnterCode));
-				EnterCode.click();
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EnterCode);
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", EnterCode);
 			} catch (ElementClickInterceptedException e) {
 				System.err.println("Element click intercepted: " + e.getMessage());
 				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.elementToBeClickable(EnterCode));
-				EnterCode.click();
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", EnterCode);
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", EnterCode);
 			} catch (Exception e) {
 				System.err.println("An unexpected error occurred: " + e.getMessage());
 			}
@@ -518,13 +609,16 @@ public class BOM_BOQ_Attachments_Locators {
 	public void ClickOnParentBOM() {
 		 try {
 				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				wait.until(ExpectedConditions.visibilityOf(ParentBOM));
 				wait.until(ExpectedConditions.elementToBeClickable(ParentBOM));
-				ParentBOM.click();
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ParentBOM);
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", ParentBOM);
 			} catch (ElementClickInterceptedException e) {
 				System.err.println("Element click intercepted: " + e.getMessage());
 				WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 				wait.until(ExpectedConditions.elementToBeClickable(ParentBOM));
-				ParentBOM.click();
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", ParentBOM);
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", ParentBOM);
 			} catch (Exception e) {
 				System.err.println("An unexpected error occurred: " + e.getMessage());
 			}
@@ -567,12 +661,14 @@ public class BOM_BOQ_Attachments_Locators {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
-			AddButton.click();
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddButton);
 		} catch (ElementClickInterceptedException e) {
 			System.err.println("Element click intercepted: " + e.getMessage());
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			wait.until(ExpectedConditions.elementToBeClickable(AddButton));
-			AddButton.click();
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", AddButton);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", AddButton);
 		} catch (Exception e) {
 			System.err.println("An unexpected error occurred: " + e.getMessage());
 		}
@@ -581,35 +677,43 @@ public class BOM_BOQ_Attachments_Locators {
 	
 	public void ClickOnBOM_BOQ() {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(BOM_BOQ));
-			BOM_BOQ.click();
-		} catch (ElementClickInterceptedException e) {
-			System.err.println("Element click intercepted: " + e.getMessage());
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(BOM_BOQ));
-			BOM_BOQ.click();
-		} catch (Exception e) {
-			System.err.println("An unexpected error occurred: " + e.getMessage());
-		}
-	}
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(BOM_BOQ)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(BOM_BOQ));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", BOM_BOQ);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", BOM_BOQ);
+  		} catch (ElementClickInterceptedException e) {
+  			System.err.println("Element click intercepted: " + e.getMessage());
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(BOM_BOQ)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(BOM_BOQ));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", BOM_BOQ);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", BOM_BOQ);
+  		} catch (Exception e) {
+  			System.err.println("An unexpected error occurred: " + e.getMessage());
+  		}
+    }
 	
 	
 	
 	public void ClickOnAttachments() {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(Attachments));
-			Attachments.click();
-		} catch (ElementClickInterceptedException e) {
-			System.err.println("Element click intercepted: " + e.getMessage());
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			wait.until(ExpectedConditions.elementToBeClickable(Attachments));
-			Attachments.click();
-		} catch (Exception e) {
-			System.err.println("An unexpected error occurred: " + e.getMessage());
-		}
-	}
+	  	try {
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Attachments)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(Attachments));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Attachments);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Attachments);
+  		} catch (ElementClickInterceptedException e) {
+  			System.err.println("Element click intercepted: " + e.getMessage());
+  			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  			wait.until(ExpectedConditions.visibilityOf(Attachments)); 
+  			wait.until(ExpectedConditions.elementToBeClickable(Attachments));
+  			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", Attachments);
+  			 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", Attachments);
+  		} catch (Exception e) {
+  			System.err.println("An unexpected error occurred: " + e.getMessage());
+  		}
+    }
 	
 	
 	
